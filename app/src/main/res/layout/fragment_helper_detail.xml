@@ -164,4 +164,19 @@
         android:text="Message"
         android:textAllCaps="false"/>
 
+    <!-- Loading Overlay -->
+    <RelativeLayout
+        android:id="@+id/helperLoadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/semi_transparent_black">
+
+        <!-- Circular ProgressBar -->
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

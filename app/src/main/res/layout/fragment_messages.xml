@@ -1,52 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Main Content -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <!-- Label for messages -->
-        <TextView
-            android:id="@+id/messagesLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/roboto"
-            android:text="Messages"
-            android:textFontWeight="600"
-            android:textSize="25sp"
-            android:layout_marginTop="40dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-
-        <!-- RecyclerView for chat threads -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/messagesChatContainer"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/messagesLabel" />
+            android:layout_height="wrap_content">
 
-        <!-- Empty State TextView (will be shown if there are no chats) -->
-        <TextView
-            android:id="@+id/emptyStateView"
+            <!-- Label for messages -->
+            <TextView
+                android:id="@+id/messagesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto"
+                android:text="Messages"
+                android:textFontWeight="600"
+                android:textSize="25sp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- RecyclerView for chat threads -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/messagesChatContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/messagesLabel" />
+
+            <!-- Empty State TextView -->
+            <TextView
+                android:id="@+id/emptyStateView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No chats here!"
+                android:textSize="18sp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginEnd="30dp"
+                android:gravity="center"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/messagesLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Loading Overlay -->
+    <RelativeLayout
+        android:id="@+id/progressBarOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/semi_transparent_black">
+
+        <!-- Circular ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No chats here!"
-            android:textSize="18sp"
-            android:layout_marginTop="40dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:gravity="center"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/messagesLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</FrameLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

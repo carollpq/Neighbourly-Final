@@ -25,8 +25,10 @@ import com.example.neighbourly.databinding.FragmentProfileBinding
 import com.example.neighbourly.models.User
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.viewmodel.taskMarketplace.ProfileViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private var _binding: FragmentProfileBinding? = null
@@ -164,15 +166,23 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         )
 
         // Toggle Helper Profile
-        viewModel.userDetails.value.let { state ->
-            if (state is OperationResult.Success) {
-                val user = state.data
-                val isHelper = user?.isHelper == true
-                popupView.findViewById<TextView>(R.id.option1).apply {
-                    text = if (isHelper) "Switch to User Profile" else "Create Helper Profile"
-                    setOnClickListener {
-                        popupWindow.dismiss()
-                        viewModel.toggleHelperProfile(!isHelper)
+        lifecycleScope.launch {
+            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.userDetails.collect { state ->
+                    if (state is OperationResult.Success) {
+                        val user = state.data
+                        val isHelper = user?.isHelper == true
+                        popupView.findViewById<TextView>(R.id.option1).apply {
+                            text = if (isHelper) "Switch to User Profile" else "Create Helper Profile"
+                            setOnClickListener {
+                                popupWindow.dismiss()
+                                if (isHelper) {
+                                    viewModel.toggleHelperProfile(false)
+                                } else {
+                                    findNavController().navigate(R.id.action_profileFragment2_to_editHelperProfileFragment)
+                                }
+                            }
+                        }
                     }
                 }
             }

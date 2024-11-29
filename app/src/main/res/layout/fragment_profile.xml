@@ -1,179 +1,198 @@
-<ScrollView
+<FrameLayout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="20dp">
+        android:background="@color/white">
 
-        <!-- Title -->
-        <TextView
-            android:id="@+id/profileTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Profile"
-            android:textStyle="bold"
-            android:textSize="22sp"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp" />
-
-        <!-- Settings Button -->
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/settingsButton"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_settings"
-            android:contentDescription="Settings"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginEnd="20dp" />
-
-        <!-- Profile Image -->
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="20dp"
-            android:contentDescription="Profile Image"
-            android:scaleType="centerCrop"
-            app:layout_constraintTop_toBottomOf="@id/profileTitle"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- User Name -->
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@id/profileImage"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- User Email -->
-        <TextView
-            android:id="@+id/userEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textColor="@color/user_profile_text"
-            app:layout_constraintTop_toBottomOf="@id/userName"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- About Me Section -->
-        <TextView
-            android:id="@+id/aboutMeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About Me"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/userEmail"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/aboutMeDesc"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/aboutMeLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="5dp" />
-
-        <!-- Helper Skills (Dynamic) -->
-        <TextView
-            android:id="@+id/helperSkillsLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Skills"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/aboutMeDesc"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="15dp" />
-
-        <TextView
-            android:id="@+id/helperSkills"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/helperSkillsLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="5dp" />
-
-        <!-- Helper Description (Dynamic) -->
-        <TextView
-            android:id="@+id/helperDescriptionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/helperSkills"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginTop="15dp" />
-
-        <TextView
-            android:id="@+id/helperDescription"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/helperDescriptionLabel"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="5dp" />
-
-        <!-- Edit Profile Button -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/editProfileBtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Edit Profile"
-            android:layout_marginTop="20dp"
-            android:layout_marginHorizontal="20dp"
-            style="@style/authBtnBlue"
-            app:layout_constraintTop_toBottomOf="@id/helperDescription"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <!-- Tasks RecyclerView -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvTaskPostedUserProfile"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintTop_toBottomOf="@id/editProfileBtn"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:layout_height="match_parent"
+            android:padding="20dp">
 
-        <!-- No Posted Tasks -->
-        <TextView
-            android:id="@+id/noPostedTaskMessage"
+            <!-- Title -->
+            <TextView
+                android:id="@+id/profileTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textStyle="bold"
+                android:textSize="22sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp" />
+
+            <!-- Settings Button -->
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/settingsButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_settings"
+                android:contentDescription="Settings"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="20dp" />
+
+            <!-- Profile Image -->
+            <ImageView
+                android:id="@+id/profileImage"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="Profile Image"
+                android:scaleType="centerCrop"
+                app:layout_constraintTop_toBottomOf="@id/profileTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- User Name -->
+            <TextView
+                android:id="@+id/userName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/profileImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- User Email -->
+            <TextView
+                android:id="@+id/userEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/user_profile_text"
+                app:layout_constraintTop_toBottomOf="@id/userName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- About Me Section -->
+            <TextView
+                android:id="@+id/aboutMeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About Me"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/userEmail"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/aboutMeDesc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@id/aboutMeLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp" />
+
+            <!-- Helper Skills (Dynamic) -->
+            <TextView
+                android:id="@+id/helperSkillsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Skills"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/aboutMeDesc"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/helperSkills"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/helperSkillsLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp" />
+
+            <!-- Helper Description (Dynamic) -->
+            <TextView
+                android:id="@+id/helperDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/helperSkills"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="15dp" />
+
+            <TextView
+                android:id="@+id/helperDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/helperDescriptionLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="5dp" />
+
+            <!-- Edit Profile Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/editProfileBtn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Edit Profile"
+                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="20dp"
+                style="@style/authBtnBlue"
+                app:layout_constraintTop_toBottomOf="@id/helperDescription"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Tasks RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTaskPostedUserProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/editProfileBtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- No Posted Tasks -->
+            <TextView
+                android:id="@+id/noPostedTaskMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No tasks posted yet"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/rvTaskPostedUserProfile"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Loading Overlay -->
+    <RelativeLayout
+        android:id="@+id/profileLoadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/semi_transparent_black">
+
+        <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No tasks posted yet"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/rvTaskPostedUserProfile"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="10dp" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</FrameLayout>
