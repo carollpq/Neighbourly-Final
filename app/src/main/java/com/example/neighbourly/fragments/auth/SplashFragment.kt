@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -13,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.neighbourly.R
+import com.example.neighbourly.TaskMarketplaceActivity
 import com.example.neighbourly.databinding.FragmentSplashBinding
 import com.example.neighbourly.utils.SplashNavigation
 import com.example.neighbourly.viewmodel.auth.SplashViewModel
@@ -91,5 +93,10 @@ class SplashFragment: Fragment(R.layout.fragment_splash) {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
         }
+    }
+
+    // Display an error message to the user
+    private fun displayError(message: String) {
+        Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 }
