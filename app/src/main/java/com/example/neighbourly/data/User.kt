@@ -3,6 +3,7 @@ package com.example.neighbourly.data
 import com.google.firebase.Timestamp
 
 data class User(
+    var id: String = "", // Firestore document ID
     val name: String? = null,
     val email: String? = null,
     val aboutMe: String? = null,
