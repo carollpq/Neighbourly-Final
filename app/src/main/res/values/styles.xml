@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="authInputText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/inputHint</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textFontWeight">200</item>
+        <item name="android:background">@drawable/auth_input_btn</item>
+    </style>
+
+    <style name="authBtnBlue">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/btnTextColorWhite</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textFontWeight" >500</item>
+        <item name="android:background">@drawable/auth_blue_btn</item>
+    </style>
+
+    <style name="authBtnWhite">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textFontWeight" >500</item>
+        <item name="android:background">@drawable/auth_grey_btn</item>
+    </style>
+
+    <style name="googleAuthBtn">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:background">@drawable/google_auth_btn</item>
+    </style>
+
+    <style name="backArrow">
+        <item name="color">@color/black</item>
+    </style>
+</resources>
