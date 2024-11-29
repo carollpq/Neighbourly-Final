@@ -1,15 +1,20 @@
 package com.example.neighbourly.repositories
 
+import android.net.Uri
 import com.example.neighbourly.data.Task
 import com.example.neighbourly.data.User
 import com.example.neighbourly.utils.Constants.TASK_COLLECTION
 import com.example.neighbourly.utils.Constants.USER_COLLECTION
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class TaskMarketplaceRepository @Inject constructor(
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val auth: FirebaseAuth,
+    private val storage: FirebaseStorage
 ) {
     suspend fun fetchTasks(limit: Long, page: Long): List<Task> {
         return firestore.collection(TASK_COLLECTION)
@@ -56,5 +61,20 @@ class TaskMarketplaceRepository @Inject constructor(
                         helper.skills?.let { regex.containsMatchIn(it.toString()) } == true ||
                         helper.helperDescription?.let { regex.containsMatchIn(it) } == true
             }
+    }
+
+    suspend fun submitTask(task: Task): String {
+        val taskRef = firestore.collection(TASK_COLLECTION).add(task).await()
+        return taskRef.id // Return the task ID for reference
+    }
+
+    suspend fun uploadImageToStorage(uri: Uri): String {
+        val imageRef = storage.reference.child("task_images/${System.currentTimeMillis()}")
+        val uploadTask = imageRef.putFile(uri).await()
+        return uploadTask.storage.downloadUrl.await().toString() // Return the download URL
+    }
+
+    fun getCurrentUserId(): String {
+        return auth.currentUser?.uid.orEmpty()
     }
 }
