@@ -94,5 +94,60 @@ class TaskMarketplaceRepository @Inject constructor(
             .getString("name")
     }
 
+    /**
+     * Fetch tasks posted by the currently authenticated user.
+     */
+    suspend fun fetchTasksByCurrentUser(): List<Task> {
+        val currentUserId = auth.currentUser?.uid.orEmpty()
+        return firestore.collection(TASK_COLLECTION)
+            .whereEqualTo("userId", currentUserId)
+            .get()
+            .await()
+            .map { document ->
+                document.toObject(Task::class.java).apply { id = document.id }
+            }
+    }
+
+    /**
+     * Fetch user details by user ID.
+     */
+    suspend fun fetchUserById(userId: String): User? {
+        return firestore.collection(USER_COLLECTION)
+            .document(userId)
+            .get()
+            .await()
+            .toObject(User::class.java)
+    }
+
+    /**
+     * Fetch details of the authenticated user.
+     */
+    suspend fun fetchCurrentUser(): User {
+        val currentUserId = auth.currentUser?.uid.orEmpty()
+        return firestore.collection(USER_COLLECTION)
+            .document(currentUserId)
+            .get()
+            .await()
+            .toObject(User::class.java)
+            ?: throw Exception("User not found")
+    }
+
+    /**
+     * Update user details.
+     */
+    suspend fun updateUserDetails(user: User) {
+        val currentUserId = auth.currentUser?.uid.orEmpty()
+        firestore.collection(USER_COLLECTION)
+            .document(currentUserId)
+            .set(user)
+            .await()
+    }
+
+    /**
+     * Sign out the currently logged-in user.
+     */
+    fun signOut() {
+        auth.signOut()
+    }
 
 }
