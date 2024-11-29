@@ -26,7 +26,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
-    private lateinit var binding: FragmentRegisterBinding
+    private var _binding: FragmentRegisterBinding ?= null
+    private val binding get() = _binding!!
     private val viewModel by viewModels<RegisterViewModel>()
 
     override fun onCreateView(
@@ -34,7 +35,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,7 +60,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             val password = binding.etPasswordRegister.text.toString()
             val confirmPassword = binding.etConfirmPassword.text.toString()
 
-            viewModel.createAccountWithEmailAndPassword(user, password, confirmPassword)
+            if (password != confirmPassword) {
+                showError("Passwords do not match")
+            } else {
+                viewModel.createAccountWithEmailAndPassword(user, password, confirmPassword)
+            }
         }
     }
 
@@ -114,5 +119,25 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private fun showError(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Clear error messages when the fragment resumes
+        binding.etTextEmailAddressRegister.error = null
+        binding.etPasswordRegister.error = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Hide keyboard and progress bar when pausing
+        binding.etTextEmailAddressRegister.clearFocus()
+        binding.etPasswordRegister.clearFocus()
+        binding.loadingOverlay.visibility = View.GONE
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Release the binding reference
     }
 }

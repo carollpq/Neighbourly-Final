@@ -69,6 +69,7 @@ dependencies {
     implementation(libs.firebase.storage.ktx)
     implementation(libs.firebase.firestore.ktx)
     implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.dataconnect)
     testImplementation(libs.junit)
     testImplementation("io.mock:mock:1.13.4")
     // AndroidX Arch Core for LiveData testing

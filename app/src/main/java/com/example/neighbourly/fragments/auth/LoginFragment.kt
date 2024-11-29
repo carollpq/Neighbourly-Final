@@ -23,13 +23,14 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding ?= null
+    private val binding get() = _binding!!
     private val viewModel by viewModels<LoginViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLoginBinding.inflate(inflater)
+        _binding = FragmentLoginBinding.inflate(inflater)
         return binding.root
     }
 
@@ -46,7 +47,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             val password = binding.etPasswordLogin.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(requireContext(), "Please enter email and password", Toast.LENGTH_SHORT).show()
+                showError("Please enter email and password")
             } else {
                 viewModel.login(email, password)
             }
@@ -86,5 +87,26 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private fun showError(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Clear error messages when the fragment resumes
+        binding.etTextEmailAddressLogin.error = null
+        binding.etPasswordLogin.error = null
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Hide keyboard and progress bar when pausing
+        binding.etTextEmailAddressLogin.clearFocus()
+        binding.etPasswordLogin.clearFocus()
+        binding.loadingOverlay.visibility = View.GONE
+    }
+
+    // Release the binding reference to prevent memory leaks
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

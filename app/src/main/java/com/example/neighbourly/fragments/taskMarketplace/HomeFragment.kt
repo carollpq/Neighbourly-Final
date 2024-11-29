@@ -22,7 +22,8 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HomeFragment: Fragment(R.layout.fragment_home) {
 
-    private lateinit var binding: FragmentHomeBinding
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     private lateinit var nearbyTasksAdapter: NearbyTasksAdapter
     private lateinit var nearbyHelpersAdapter: NearbyHelpersAdapter
 
@@ -67,6 +68,19 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
         binding.navigateToPostTaskBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment2_to_postTaskFragment)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh data when the fragment becomes active
+        homeViewModel.fetchNearbyTasks()
+        homeViewModel.fetchNearbyHelpers()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Pause any ongoing operations if necessary
+        binding.homeProgressBar.visibility = View.GONE // Ensure progress bar is hidden
     }
 
     private fun <T> collectOperationResult(flow: Flow<OperationResult<T>>, onSuccess: (T) -> Unit) {
@@ -129,5 +143,10 @@ class HomeFragment: Fragment(R.layout.fragment_home) {
     private fun showError(message: String?) {
         hideLoading()
         Toast.makeText(requireContext(), message ?: "Error occurred", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null // Release the binding reference
     }
 }

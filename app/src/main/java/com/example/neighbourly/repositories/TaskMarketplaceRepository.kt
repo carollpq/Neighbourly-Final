@@ -31,4 +31,30 @@ class TaskMarketplaceRepository @Inject constructor(
                 document.toObject(User::class.java).apply { id = document.id } // Map Firestore document ID to the 'id' field
             }
     }
+
+    suspend fun searchTasks(query: String): List<Task> {
+        val regex = Regex(query, RegexOption.IGNORE_CASE)
+        return firestore.collection(TASK_COLLECTION)
+            .get()
+            .await()
+            .documents.mapNotNull { it.toObject(Task::class.java) }
+            .filter { task ->
+                task.title?.let { regex.containsMatchIn(it) } == true ||
+                        task.description?.let { regex.containsMatchIn(it) } == true
+            }
+    }
+
+    suspend fun searchHelpers(query: String): List<User> {
+        val regex = Regex(query, RegexOption.IGNORE_CASE)
+        return firestore.collection(USER_COLLECTION)
+            .whereEqualTo("isHelper", true)
+            .get()
+            .await()
+            .documents.mapNotNull { it.toObject(User::class.java) }
+            .filter { helper ->
+                helper.name?.let { regex.containsMatchIn(it) } == true ||
+                        helper.skills?.let { regex.containsMatchIn(it.toString()) } == true ||
+                        helper.helperDescription?.let { regex.containsMatchIn(it) } == true
+            }
+    }
 }
