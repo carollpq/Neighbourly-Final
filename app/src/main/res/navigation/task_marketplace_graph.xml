@@ -75,6 +75,12 @@
         <argument
             android:name="searchType"
             app:argType="string" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_helperDetailFragment"
+            app:destination="@id/helperDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/postTaskFragment"

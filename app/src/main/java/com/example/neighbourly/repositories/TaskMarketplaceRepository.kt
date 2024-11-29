@@ -77,4 +77,22 @@ class TaskMarketplaceRepository @Inject constructor(
     fun getCurrentUserId(): String {
         return auth.currentUser?.uid.orEmpty()
     }
+
+    suspend fun fetchTaskById(taskId: String): Task? {
+        return firestore.collection(TASK_COLLECTION)
+            .document(taskId)
+            .get()
+            .await()
+            .toObject(Task::class.java)
+    }
+
+    suspend fun fetchUserNameById(userId: String): String? {
+        return firestore.collection(USER_COLLECTION)
+            .document(userId)
+            .get()
+            .await()
+            .getString("name")
+    }
+
+
 }

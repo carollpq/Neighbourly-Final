@@ -91,6 +91,19 @@ class SearchResultFragment: Fragment(R.layout.fragment_search_result) {
         nearbyHelpersAdapter = NearbyHelpersAdapter()
 
         binding.rvSearchResult.layoutManager = GridLayoutManager(context, 2)
+
+        // Handle Click Events for Tasks
+        nearbyTasksAdapter.onTaskClickListener = { task ->
+            val bundle = Bundle().apply { putString("TASK_ID", task.id) }
+            findNavController().navigate(R.id.action_searchResultFragment_to_taskDetailFragment, bundle)
+        }
+
+        // Handle Click Events for Helpers
+        nearbyHelpersAdapter.onHelperClickListener = { helper ->
+            val bundle = Bundle().apply { putString("HELPER_ID", helper.id) }
+            findNavController().navigate(R.id.action_searchResultFragment_to_helperDetailFragment, bundle)
+        }
+
         // Collect the StateFlow
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
