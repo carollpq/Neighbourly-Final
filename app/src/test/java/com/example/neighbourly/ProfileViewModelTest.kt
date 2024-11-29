@@ -2,7 +2,7 @@ package com.example.neighbourly
 
 import com.example.neighbourly.models.User
 import com.example.neighbourly.utils.Constants.USER_COLLECTION
-import com.example.neighbourly.viewmodel.taskMarketplace.UserProfileViewModel
+import com.example.neighbourly.viewmodel.taskMarketplace.ProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,12 +17,12 @@ import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
 
 @ExperimentalCoroutinesApi
-class UserProfileViewModelTest {
+class ProfileViewModelTest {
 
     @get:Rule
     val mainDispatcherRule = MainDispatcherRule() // For coroutine testing
 
-    private lateinit var viewModel: UserProfileViewModel
+    private lateinit var viewModel: ProfileViewModel
     private val mockAuth = mock<FirebaseAuth> {
         on { currentUser }.thenReturn(mock<FirebaseUser> { on { uid }.thenReturn("12345") })
     }
@@ -30,7 +30,7 @@ class UserProfileViewModelTest {
 
     @Before
     fun setup() {
-        viewModel = UserProfileViewModel(mockAuth, mockFirestore)
+        viewModel = ProfileViewModel(mockAuth, mockFirestore)
     }
 
     @Test

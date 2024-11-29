@@ -48,9 +48,9 @@
     </fragment>
     <fragment
         android:id="@+id/profileFragment2"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.UserProfileFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.ProfileFragment"
         android:label="ProfileFragment"
-        tools:layout="@layout/fragment_user_profile">
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profileFragment2_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />

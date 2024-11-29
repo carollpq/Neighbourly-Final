@@ -21,17 +21,17 @@ import com.bumptech.glide.Glide
 import com.example.neighbourly.AuthActivity
 import com.example.neighbourly.R
 import com.example.neighbourly.adapters.NearbyTasksAdapter
-import com.example.neighbourly.databinding.FragmentUserProfileBinding
+import com.example.neighbourly.databinding.FragmentProfileBinding
 import com.example.neighbourly.models.User
 import com.example.neighbourly.utils.OperationResult
-import com.example.neighbourly.viewmodel.taskMarketplace.UserProfileViewModel
+import com.example.neighbourly.viewmodel.taskMarketplace.ProfileViewModel
 import kotlinx.coroutines.launch
 
-class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-    private var _binding: FragmentUserProfileBinding? = null
+    private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModels<UserProfileViewModel>()
+    private val viewModel by viewModels<ProfileViewModel>()
 
     private lateinit var nearbyTasksAdapter: NearbyTasksAdapter
     private lateinit var popupView: View
@@ -42,7 +42,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentUserProfileBinding.inflate(inflater, container, false)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -61,7 +61,7 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         }
 
         binding.settingsButton.setOnClickListener {
-            viewModel.signOut() // Trigger sign-out
+            showSettingsPopup()
         }
     }
 
@@ -136,14 +136,24 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         binding.userName.text = user.name ?: "N/A"
         binding.userEmail.text = user.email ?: "N/A"
         binding.aboutMeDesc.text = user.aboutMe ?: "N/A"
-        binding.joinedSinceDate.text = (user.joinedSince ?: "N/A").toString()
-        binding.addressLocation.text = user.address ?: "N/A"
 
-        Glide.with(requireContext())
-            .load(user.imageUri?.let { Uri.parse(it) } ?: R.drawable.profile_pic_placeholder)
-            .circleCrop()
-            .into(binding.profileImage)
+        // Dynamic visibility for helper-specific fields
+        if (user.isHelper == true) {
+            binding.helperSkillsLabel.visibility = View.VISIBLE
+            binding.helperSkills.visibility = View.VISIBLE
+            binding.helperSkills.text = user.skills?.joinToString(", ") ?: "No skills listed"
+
+            binding.helperDescriptionLabel.visibility = View.VISIBLE
+            binding.helperDescription.visibility = View.VISIBLE
+            binding.helperDescription.text = user.helperDescription ?: "No description provided"
+        } else {
+            binding.helperSkillsLabel.visibility = View.GONE
+            binding.helperSkills.visibility = View.GONE
+            binding.helperDescriptionLabel.visibility = View.GONE
+            binding.helperDescription.visibility = View.GONE
+        }
     }
+
 
     private fun showSettingsPopup() {
         val popupWindow = PopupWindow(
@@ -153,36 +163,22 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
             true
         )
 
-        // Dynamically set text and behavior for the first option
-        lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userDetails.collect { state ->
-                    when (state) {
-                        is OperationResult.Success -> {
-                            val user = state.data
-                            val isHelper = user?.isHelper ?: false
-
-                            // Update the option dynamically based on `isHelper`
-                            option1.text = if (isHelper) "Switch to Helper Profile" else "Create Helper Profile"
-                            option1.setOnClickListener {
-                                popupWindow.dismiss()
-                                if (isHelper) {
-                                    navigateToHelperProfile()
-                                } else {
-                                    navigateToCreateHelperProfile()
-                                }
-                            }
-                        }
-                        is OperationResult.Error -> {
-                            Toast.makeText(requireContext(), "Error: ${state.message}", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> Unit
+        // Toggle Helper Profile
+        viewModel.userDetails.value.let { state ->
+            if (state is OperationResult.Success) {
+                val user = state.data
+                val isHelper = user?.isHelper == true
+                popupView.findViewById<TextView>(R.id.option1).apply {
+                    text = if (isHelper) "Switch to User Profile" else "Create Helper Profile"
+                    setOnClickListener {
+                        popupWindow.dismiss()
+                        viewModel.toggleHelperProfile(!isHelper)
                     }
                 }
             }
         }
 
-        // Sign-out button
+        // Sign-out
         popupView.findViewById<TextView>(R.id.signOutBtn).setOnClickListener {
             popupWindow.dismiss()
             viewModel.signOut()
@@ -200,14 +196,6 @@ class UserProfileFragment : Fragment(R.layout.fragment_user_profile) {
         val intent = Intent(requireContext(), AuthActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-    }
-
-    private fun navigateToCreateHelperProfile() {
-        findNavController().navigate(R.id.action_profileFragment2_to_editHelperProfileFragment)
-    }
-
-    private fun navigateToHelperProfile() {
-        findNavController().navigate(R.id.action_profileFragment2_to_helperProfileFragment)
     }
 
 

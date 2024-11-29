@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class UserProfileViewModel @Inject constructor(
+class ProfileViewModel @Inject constructor(
     private val repository: TaskMarketplaceRepository
 ) : ViewModel() {
 
@@ -67,6 +67,26 @@ class UserProfileViewModel @Inject constructor(
                 fetchAuthenticatedUserDetails() // Refresh details after update
             } catch (e: Exception) {
                 _userDetails.emit(OperationResult.Error(e.message ?: "Error updating user details"))
+            }
+        }
+    }
+
+    /**
+     * Toggle helper profile status.
+     */
+    fun toggleHelperProfile(isHelper: Boolean, skills: List<String>? = null, helperDescription: String? = null) {
+        viewModelScope.launch {
+            _userDetails.emit(OperationResult.Loading())
+            try {
+                val user = repository.fetchCurrentUser().copy(
+                    isHelper = isHelper,
+                    skills = if (isHelper) skills else emptyList(),
+                    helperDescription = if (isHelper) helperDescription else null
+                )
+                repository.updateUserDetails(user)
+                fetchAuthenticatedUserDetails() // Refresh after toggle
+            } catch (e: Exception) {
+                _userDetails.emit(OperationResult.Error(e.message ?: "Error toggling helper profile"))
             }
         }
     }
