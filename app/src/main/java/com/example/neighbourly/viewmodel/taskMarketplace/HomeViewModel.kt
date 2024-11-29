@@ -2,8 +2,8 @@ package com.example.neighbourly.viewmodel.taskMarketplace
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.neighbourly.data.Task
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.Task
+import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.utils.OperationResult
 import dagger.hilt.android.lifecycle.HiltViewModel

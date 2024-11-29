@@ -1,4 +1,4 @@
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.UserRepository
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.utils.RegisterValidation

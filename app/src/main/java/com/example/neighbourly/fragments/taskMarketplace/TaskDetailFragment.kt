@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.example.neighbourly.R
-import com.example.neighbourly.data.Task
+import com.example.neighbourly.models.Task
 import com.example.neighbourly.databinding.FragmentTaskDetailBinding
 import com.example.neighbourly.viewmodel.taskMarketplace.TaskDetailViewModel
 import java.text.SimpleDateFormat

@@ -1,7 +1,7 @@
 package com.example.neighbourly.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.UserRepository
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.utils.RegisterFieldsState

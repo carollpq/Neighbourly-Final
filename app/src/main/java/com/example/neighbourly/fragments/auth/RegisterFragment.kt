@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.neighbourly.R
 import com.example.neighbourly.TaskMarketplaceActivity
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.User
 import com.example.neighbourly.databinding.FragmentRegisterBinding
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.utils.RegisterFieldsState

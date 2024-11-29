@@ -21,7 +21,7 @@
             app:destination="@id/taskDetailFragment">
             <argument
                 android:name="TASK_ID"
-                app:argType="com.example.neighbourly.data.Task" />
+                app:argType="com.example.neighbourly.models.Task" />
         </action>
         <action
             android:id="@+id/action_homeFragment2_to_helperDetailFragment"
@@ -109,7 +109,7 @@
     </fragment>
         <argument
             android:name="task"
-            app:argType="com.example.neighbourly.data.Task" />
+            app:argType="com.example.neighbourly.models.Task" />
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.example.neighbourly.fragments.taskMarketplace.EditUserProfileFragment"
@@ -142,7 +142,7 @@
             app:destination="@id/individualChatFragment" />
         <argument
             android:name="helper"
-            app:argType="com.example.neighbourly.data.Helper" />
+            app:argType="com.example.neighbourly.models.Helper" />
     </fragment>
     <fragment
         android:id="@+id/individualChatFragment"

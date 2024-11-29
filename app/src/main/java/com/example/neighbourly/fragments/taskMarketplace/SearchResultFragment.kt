@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.neighbourly.R
 import com.example.neighbourly.adapters.NearbyHelpersAdapter
 import com.example.neighbourly.adapters.NearbyTasksAdapter
-import com.example.neighbourly.data.Task
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.Task
+import com.example.neighbourly.models.User
 import com.example.neighbourly.databinding.FragmentSearchResultBinding
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.viewmodel.taskMarketplace.SearchResultViewModel

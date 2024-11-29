@@ -1,4 +1,4 @@
-package com.example.neighbourly.data
+package com.example.neighbourly.models
 
 data class Task(
     var id: String = "", // Firebase document ID

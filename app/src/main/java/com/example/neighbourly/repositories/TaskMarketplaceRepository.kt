@@ -1,8 +1,8 @@
 package com.example.neighbourly.repositories
 
 import android.net.Uri
-import com.example.neighbourly.data.Task
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.Task
+import com.example.neighbourly.models.User
 import com.example.neighbourly.utils.Constants.TASK_COLLECTION
 import com.example.neighbourly.utils.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth

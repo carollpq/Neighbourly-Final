@@ -1,7 +1,7 @@
 package com.example.neighbourly
 
-import com.example.neighbourly.data.Task
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.Task
+import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.utils.Constants.TASK_COLLECTION
 import com.example.neighbourly.utils.Constants.USER_COLLECTION

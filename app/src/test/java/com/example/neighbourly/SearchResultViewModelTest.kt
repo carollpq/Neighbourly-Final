@@ -1,8 +1,8 @@
 package com.example.neighbourly
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.neighbourly.data.Task
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.Task
+import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.viewmodel.taskMarketplace.SearchResultViewModel
 import junit.framework.TestCase.assertEquals

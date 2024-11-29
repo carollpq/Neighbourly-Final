@@ -1,6 +1,6 @@
 package com.example.neighbourly.repositories
 
-import com.example.neighbourly.data.User
+import com.example.neighbourly.models.User
 import com.example.neighbourly.utils.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore

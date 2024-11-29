@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.neighbourly.R
-import com.example.neighbourly.data.Task
+import com.example.neighbourly.models.Task
 import com.example.neighbourly.databinding.CardviewTaskHelperBinding
 
 class NearbyTasksAdapter: RecyclerView.Adapter<NearbyTasksAdapter.NearbyTasksViewHolder>() {

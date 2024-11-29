@@ -1,4 +1,4 @@
-package com.example.neighbourly.data
+package com.example.neighbourly.models
 
 import com.google.firebase.Timestamp
 
