@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/authPageBg"
+        android:id="@+id/loginConstraintLayout">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLoginRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="35dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineLoginLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="35dp" />
+
+        <TextView
+            android:id="@+id/welcomeBackTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:fontFamily="@font/roboto"
+            android:text="Welcome Back!"
+            android:textFontWeight="600"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etTextEmailAddressLogin"
+            style="@style/authInputText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="90dp"
+            android:ems="10"
+            android:hint="abc@gmail.com"
+            android:inputType="textEmailAddress"
+            android:padding="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+            app:layout_constraintTop_toBottomOf="@+id/welcomeBackTitle" />
+
+        <EditText
+            android:id="@+id/etPasswordLogin"
+            style="@style/authInputText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:padding="15dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel" />
+
+
+        <TextView
+            android:id="@+id/tvEmailLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            android:text="Email"
+            android:fontFamily="@font/roboto"
+            android:textSize="20sp"
+            android:textFontWeight="500"
+            app:layout_constraintBottom_toTopOf="@+id/etTextEmailAddressLogin"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft" />
+
+        <TextView
+            android:id="@+id/tvPasswordLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:fontFamily="@font/roboto"
+            android:text="Password"
+            android:textFontWeight="500"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/etPasswordLogin"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+            app:layout_constraintTop_toBottomOf="@id/etTextEmailAddressLogin"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginBtn"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/onboardingBtnHeight"
+            android:layout_gravity="center_horizontal"
+            android:elevation="8dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingStart="30dp"
+            android:paddingTop="15dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="15dp"
+            android:text="Login"
+            android:textAllCaps="false"
+            style="@style/authBtnBlue"
+            android:layout_marginTop="18dp"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+            app:layout_constraintTop_toBottomOf="@+id/etPasswordLogin" />
+
+        <TextView
+            android:id="@+id/navToSignUp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Don't have an account?"
+            android:textColor="@color/black"
+            android:fontFamily="@font/roboto"
+            app:layout_constraintHorizontal_bias="0.371"
+            app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+            app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+            app:layout_constraintTop_toBottomOf="@id/loginBtn" />
+
+        <TextView
+            android:id="@+id/signUpText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Sign up"
+            android:textColor="@color/bluePrimary"
+            android:fontFamily="@font/roboto"
+            android:layout_marginStart="5dp"
+            app:layout_constraintStart_toEndOf="@id/navToSignUp"
+            app:layout_constraintTop_toBottomOf="@id/loginBtn" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Loading View -->
+    <RelativeLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/semi_transparent_black">
+
+        <!-- Circular ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+</FrameLayout>

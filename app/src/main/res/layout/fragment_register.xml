@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/authPageBg">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginConstraintLayout">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLoginRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="35dp" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineLoginLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="35dp" />
+
+            <TextView
+                android:id="@+id/createAccountTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:fontFamily="@font/roboto"
+                android:text="Create an Account"
+                android:textFontWeight="600"
+                android:textSize="25sp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+                app:layout_constraintHorizontal_bias="0.514"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintBottom_toTopOf="@id/tvNameLabel"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/etTextEmailAddressRegister"
+                style="@style/authInputText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:ems="10"
+                android:hint="abc@gmail.com"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvEmailLabel" />
+
+            <EditText
+                android:id="@+id/etPasswordRegister"
+                style="@style/authInputText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvPasswordLabel" />
+
+            <EditText
+                android:id="@+id/etConfirmPassword"
+                style="@style/authInputText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvConfirmPassword"
+                app:layout_constraintBottom_toTopOf="@id/signUpBtn"/>
+
+            <EditText
+                android:id="@+id/etNameRegister"
+                style="@style/authInputText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:ems="10"
+                android:hint="Enter name here"
+                android:inputType="textEmailAddress"
+                android:padding="15dp"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+                app:layout_constraintBottom_toTopOf="@id/tvEmailLabel"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@+id/tvNameLabel" />
+
+
+            <TextView
+                android:id="@+id/tvEmailLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:text="Email"
+                android:fontFamily="@font/roboto"
+                android:textSize="20sp"
+                android:textFontWeight="500"
+                app:layout_constraintBottom_toTopOf="@+id/etTextEmailAddressRegister"
+                app:layout_constraintTop_toBottomOf="@id/etNameRegister"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft" />
+
+            <TextView
+                android:id="@+id/tvPasswordLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:fontFamily="@font/roboto"
+                android:text="Password"
+                android:textFontWeight="500"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/etPasswordRegister"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@id/etTextEmailAddressRegister"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:fontFamily="@font/roboto"
+                android:text="Name"
+                android:textFontWeight="500"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/etNameRegister"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@id/createAccountTitle"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tvConfirmPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:fontFamily="@font/roboto"
+                android:text="Confirm Password"
+                android:textFontWeight="500"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/etConfirmPassword"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@id/etPasswordRegister"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/signUpBtn"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/onboardingBtnHeight"
+                android:layout_gravity="center_horizontal"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:paddingStart="30dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="30dp"
+                android:paddingBottom="15dp"
+                android:text="Sign Up"
+                android:textAllCaps="false"
+                style="@style/authBtnBlue"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                app:layout_constraintEnd_toStartOf="@+id/guidelineLoginRight"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@+id/etConfirmPassword" />
+
+            <TextView
+                android:id="@+id/navToLogIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/roboto"
+                android:text="Already have an account?"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/guidelineLoginRight"
+                app:layout_constraintHorizontal_bias="0.371"
+                app:layout_constraintStart_toStartOf="@id/guidelineLoginLeft"
+                app:layout_constraintTop_toBottomOf="@id/signUpBtn" />
+
+            <TextView
+                android:id="@+id/logInText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Log In"
+                android:textColor="@color/bluePrimary"
+                android:fontFamily="@font/roboto"
+                android:layout_marginStart="5dp"
+                app:layout_constraintStart_toEndOf="@id/navToLogIn"
+                app:layout_constraintTop_toBottomOf="@id/signUpBtn" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <!-- Loading View -->
+    <RelativeLayout
+        android:id="@+id/loadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/semi_transparent_black">
+
+        <!-- Circular ProgressBar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</FrameLayout>

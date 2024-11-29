@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Neighbourly</string>
+
+<!--    Categories-->
+    <string name="cleaning">Cleaning</string>
+    <string name="pet_care">Pet Care</string>
+    <string name="tutor">Tutoring</string>
+
+    <string name="description_placeholder">I need help with cleaning my apartment, as I am currently injured. Contact me for payment details. Thank you!</string>
+    <string name="user_desc_placeholder">Hi! I\'ve been in this neighbourhood for 20 years. I like to cook and have guests around to enjoy my food so do not be shy and come and say hi!</string>
+    <string name="helper_desc_placeholder">Hi! I\'ve been in this neighbourhood for 20 years and have been enjoying helping around. My specialty is kitchen work so if you need any help always hit me up!</string>
+    <string name="taskDescHint">I need help with cleaning my kitchen...</string>
+    <string name="skills_placeholder">Plumbing, painting, teaching</string>
+
+
 </resources>

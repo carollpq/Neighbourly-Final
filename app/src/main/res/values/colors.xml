@@ -7,4 +7,16 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="btnTextColorWhite">#FEFCFC</color>
+    <color name="bluePrimary">#244bca</color>
+    <color name="grayBtnBg">#E4DDDD</color>
+    <color name="authInputBtnBorder">#99000000</color>
+    <color name="inputHint">#B7474545</color>
+    <color name="authPageBg">#7FEDE6E6</color>
+    <color name="bottomNavDefault">#80000000</color>
+    <color name="homeBg">#F9F5F5</color>
+    <color name="cardViewBg">#E4E4E4</color>
+    <color name="categories_bg_tint">#54000000</color>
+    <color name="user_profile_text">#EB5F5D5D</color>
+    <color name="semi_transparent_black">#80000000</color>
 </resources>

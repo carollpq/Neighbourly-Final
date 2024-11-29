@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".TaskMarketplaceActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:id="@+id/taskMarketplaceHostFragment"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/task_marketplace_graph"
+        android:background="@color/homeBg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:menu="@menu/bottom_menu"
+        android:background="@drawable/bottom_navigation_background"
+        app:itemTextColor="@drawable/bottom_nav_item_background"
+        android:elevation="0dp"
+        app:itemPaddingTop="15dp"
+        app:itemPaddingBottom="15dp"
+        app:itemRippleColor="@color/white"
+        app:itemIconTint="@drawable/bottom_nav_item_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
