@@ -27,4 +27,12 @@ class UserRepository @Inject constructor(
         val userDoc = firestore.collection(USER_COLLECTION).document(userId).get().await()
         return userDoc.getBoolean("firstTimeLogin") ?: true // Default to true if the field is missing
     }
+
+    // Fetch user details by user ID
+    suspend fun fetchUser(userId: String): User? {
+        val userDoc = firestore.collection(USER_COLLECTION).document(userId).get().await()
+        return if (userDoc.exists()) {
+            userDoc.toObject(User::class.java)
+        } else null
+    }
 }
