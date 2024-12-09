@@ -42,11 +42,10 @@
                 android:id="@+id/messageUserName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Toby"
                 android:fontFamily="@font/roboto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:textSize="12dp"/>
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/messagePreview"
@@ -56,8 +55,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/messageUserName"
                 android:layout_marginTop="5dp"
-                android:textSize="10dp"
-                android:text="Hi! Would you like to do it on Thursday?"/>
+                android:textSize="11sp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -67,8 +65,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toEndOf="@id/messagePreviewContainer"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="9:30AM"
-            android:textSize="10dp"
+            android:textSize="11sp"
             android:layout_marginStart="5dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

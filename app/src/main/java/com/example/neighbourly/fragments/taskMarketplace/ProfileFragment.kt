@@ -23,6 +23,7 @@ import com.example.neighbourly.R
 import com.example.neighbourly.adapters.NearbyTasksAdapter
 import com.example.neighbourly.databinding.FragmentProfileBinding
 import com.example.neighbourly.models.User
+import com.example.neighbourly.utils.DialogUtils
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.viewmodel.taskMarketplace.ProfileViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,13 +32,14 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
+    // View binding for interacting with layout elements
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<ProfileViewModel>()
 
     private lateinit var nearbyTasksAdapter: NearbyTasksAdapter
+    // Popup view for settings options
     private lateinit var popupView: View
-    private lateinit var option1: TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,30 +53,57 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize popupView with the layout for the popup
+        popupView = LayoutInflater.from(requireContext()).inflate(R.layout.popup_settings, null)
+
         setupRecyclerView()
         setupObservers()
 
         // Fetch user details and tasks
         viewModel.fetchAuthenticatedUserDetails()
-        viewModel.fetchUserPostedTasks()
 
+        // Navigate to Edit Profile screen
         binding.editProfileBtn.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment2_to_editProfileFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
         }
-
+        // Show settings popup
         binding.settingsButton.setOnClickListener {
             showSettingsPopup()
         }
     }
 
+    /**
+     * Configures the RecyclerView to display tasks posted by the user.
+     */
     private fun setupRecyclerView() {
-        nearbyTasksAdapter = NearbyTasksAdapter()
+        // Get current user's ID and initialize adapter
+        val currentUserId = viewModel.getCurrentUserId()
+        nearbyTasksAdapter = NearbyTasksAdapter(currentUserId, requireActivity()).apply {
+            onTaskClickListener = { task ->
+                navigateToTaskDetail(task.id)
+            }
+        }
+
+        // Attach adapter and layout manager to the RecyclerView
         binding.rvTaskPostedUserProfile.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = nearbyTasksAdapter
         }
     }
 
+    /**
+     * Navigates to the Task Detail screen for a given task ID.
+     */
+    private fun navigateToTaskDetail(taskId: String) {
+        val bundle = Bundle().apply {
+            putString("TASK_ID", taskId)
+        }
+        findNavController().navigate(R.id.action_profileFragment_to_taskDetailFragment, bundle)
+    }
+
+    /**
+     * Sets up observers for ViewModel state changes.
+     */
     private fun setupObservers() {
         // Observe user details
         viewLifecycleOwner.lifecycleScope.launch {
@@ -96,7 +125,7 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             }
         }
 
-        // Observe user tasks
+        // Observe tasks posted by the user
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.userTasks.collect { state ->
@@ -134,29 +163,35 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         }
     }
 
+    /**
+     * Binds user details to the UI.
+     */
     private fun bindUserDetails(user: User) {
-        binding.userName.text = user.name ?: "N/A"
-        binding.userEmail.text = user.email ?: "N/A"
-        binding.aboutMeDesc.text = user.aboutMe ?: "N/A"
-
-        // Dynamic visibility for helper-specific fields
-        if (user.isHelper == true) {
-            binding.helperSkillsLabel.visibility = View.VISIBLE
-            binding.helperSkills.visibility = View.VISIBLE
-            binding.helperSkills.text = user.skills?.joinToString(", ") ?: "No skills listed"
-
-            binding.helperDescriptionLabel.visibility = View.VISIBLE
-            binding.helperDescription.visibility = View.VISIBLE
-            binding.helperDescription.text = user.helperDescription ?: "No description provided"
-        } else {
-            binding.helperSkillsLabel.visibility = View.GONE
-            binding.helperSkills.visibility = View.GONE
-            binding.helperDescriptionLabel.visibility = View.GONE
-            binding.helperDescription.visibility = View.GONE
-        }
+        // General user details
+        binding.userName.text = user.name.orDefault("No username available")
+        binding.userEmail.text = user.email.orDefault("No email address available")
+        binding.aboutMeDesc.text = user.aboutMe.orDefault("Edit Your Profile to Add a Description About Yourself!")
+        binding.userAddress.text = user.address.orDefault("No Address Added")
+        binding.isHelper.text = if (user.helper == true) { "Yes" } else { "No" }
+        binding.helperDescription.text = user.helperDescription.orDefault("Edit Your Helper Profile to Add In Description!")
+        binding.helperSkills.text = user.skills.orDefault("No skills listed")
+        // Profile picture
+        Glide.with(requireContext())
+            .load(user.imageUri ?: R.drawable.profile_pic_placeholder)
+            .circleCrop()
+            .into(binding.profileImage)
     }
 
+    /**
+     * Provides a default value for nullable or blank strings.
+     */
+    fun String?.orDefault(default: String): String {
+        return if (this.isNullOrBlank()) default else this
+    }
 
+    /**
+     * Displays the settings popup window.
+     */
     private fun showSettingsPopup() {
         val popupWindow = PopupWindow(
             popupView,
@@ -165,31 +200,8 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             true
         )
 
-        // Toggle Helper Profile
-        lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.userDetails.collect { state ->
-                    if (state is OperationResult.Success) {
-                        val user = state.data
-                        val isHelper = user?.isHelper == true
-                        popupView.findViewById<TextView>(R.id.option1).apply {
-                            text = if (isHelper) "Switch to User Profile" else "Create Helper Profile"
-                            setOnClickListener {
-                                popupWindow.dismiss()
-                                if (isHelper) {
-                                    viewModel.toggleHelperProfile(false)
-                                } else {
-                                    findNavController().navigate(R.id.action_profileFragment2_to_editHelperProfileFragment)
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Sign-out
-        popupView.findViewById<TextView>(R.id.signOutBtn).setOnClickListener {
+        // Sign-out option
+        popupView.findViewById<TextView>(R.id.signOutBtn)?.setOnClickListener {
             popupWindow.dismiss()
             viewModel.signOut()
         }
@@ -202,6 +214,9 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
         binding.profileLoadingOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
+    /**
+     * Navigates to the login screen after sign-out.
+     */
     private fun navigateToLogin() {
         val intent = Intent(requireContext(), AuthActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK

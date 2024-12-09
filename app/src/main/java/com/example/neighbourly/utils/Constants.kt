@@ -1,5 +1,6 @@
 package com.example.neighbourly.utils
 
+// Holds constant values used across the application ; Firebase-specific
 object Constants {
     const val USER_COLLECTION = "users"
     const val TASK_COLLECTION = "tasks"

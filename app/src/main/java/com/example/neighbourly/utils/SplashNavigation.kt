@@ -1,5 +1,6 @@
 package com.example.neighbourly.utils
 
+// Represents different navigation paths for the Splash screen
 sealed class SplashNavigation {
     object RedirectToRegistrationFlow : SplashNavigation()
     object RedirectToApplicationFlow : SplashNavigation()

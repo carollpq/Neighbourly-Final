@@ -11,12 +11,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="80dp">
 
             <ImageView
                 android:id="@+id/taskImage"
                 android:layout_width="0dp"
-                android:layout_height="266dp"
+                android:layout_height="@dimen/details_image_height"
+                android:contentDescription="@string/card_image_desc"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -25,24 +27,36 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/taskDetailBackBtn"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="@dimen/back_btn"
+                android:layout_height="@dimen/back_btn"
                 android:background="@drawable/rounded_back_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"/>
+                android:layout_marginStart="@dimen/details_margin_horizontal"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/optionsButton"
+                android:layout_width="@dimen/back_btn"
+                android:layout_height="@dimen/back_btn"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/ic_options"
+                android:visibility="gone"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="@dimen/details_margin_horizontal"/>
 
             <TextView
                 android:id="@+id/taskDetailTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/roboto"
-                android:textFontWeight="600"
-                android:textSize="23sp"
+                android:textFontWeight="700"
+                android:textSize="25sp"
+                android:text="Cleaning"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/taskImage"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="@dimen/details_margin_horizontal"
                 android:layout_marginTop="20dp" />
 
             <TextView
@@ -51,7 +65,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/taskDetailTitle"
-                android:layout_marginStart="20dp" />
+                android:layout_marginStart="@dimen/details_margin_horizontal"
+                android:layout_marginTop="10dp"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/taskDescriptionCard"
@@ -61,7 +76,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp">
+                android:layout_marginHorizontal="@dimen/details_margin_horizontal">
 
                 <TextView
                     android:id="@+id/descriptionLabel"
@@ -69,9 +84,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="Description"
+                    android:text="@string/description_label"
                     android:fontFamily="@font/roboto"
-                    android:textFontWeight="600"
+                    android:textFontWeight="800"
                     android:textSize="18sp" />
 
                 <TextView
@@ -95,8 +110,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/taskDescriptionCard"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp">
+                app:layout_constraintBottom_toTopOf="@+id/contentSeparator"
+                android:layout_marginVertical="20dp"
+                android:layout_marginHorizontal="@dimen/details_margin_horizontal">
 
                 <TextView
                     android:id="@+id/dateAndTimeLabel"
@@ -104,9 +120,9 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="Date and Time"
+                    android:text="@string/date_and_time_label"
                     android:fontFamily="@font/roboto"
-                    android:textFontWeight="600"
+                    android:textFontWeight="800"
                     android:textSize="18sp" />
 
                 <TextView
@@ -115,10 +131,12 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dateAndTimeLabel"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:fontFamily="@font/roboto"
                     android:textFontWeight="400"
                     android:textSize="15sp"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="25dp"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -129,16 +147,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/postedDate"
                 android:layout_marginTop="10dp"
-                android:layout_marginHorizontal="20dp">
+                android:layout_marginHorizontal="@dimen/details_margin_horizontal">
 
                 <ImageView
                     android:id="@+id/locationIcon"
                     android:layout_width="15dp"
                     android:layout_height="15dp"
+                    android:contentDescription="@string/location_icon_desc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    android:text="Location"
+                    android:text="@string/location_label"
                     android:fontFamily="@font/roboto"
                     android:textFontWeight="600"
                     android:textSize="18sp"
@@ -158,19 +177,106 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <View
+                android:id="@+id/contentSeparator"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginHorizontal="15dp"
+                android:background="@color/authInputBtnBorder"
+                app:layout_constraintTop_toBottomOf="@id/dateAndTimeContainer" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/aboutPosterContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/details_margin_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/contentSeparator">
+
+                <TextView
+                    android:id="@+id/aboutPosterLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/roboto"
+                    android:text="@string/about_task_poster"
+                    android:textFontWeight="800"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/aboutPosterPic"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/profile_pic_placeholder"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/aboutPosterLabel" />
+
+                <TextView
+                    android:id="@+id/aboutPosterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Carolina"
+                    android:textFontWeight="500"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/aboutPosterPic"
+                    app:layout_constraintTop_toBottomOf="@id/aboutPosterLabel" />
+
+                <TextView
+                    android:id="@+id/aboutPosterDesc"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/roboto"
+                    android:text="Hi! Let's meet up"
+                    android:textFontWeight="400"
+                    android:textSize="18sp"
+                    app:layout_constraintStart_toEndOf="@id/aboutPosterPic"
+                    app:layout_constraintTop_toBottomOf="@id/aboutPosterName" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/messageBtn"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:elevation="8dp"
+                    android:layout_marginVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/aboutPosterDesc"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    style="@style/authBtnBlue"
+                    android:text="@string/message_btn"
+                    android:textAllCaps="false"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+`
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/messageBtn"
-        android:layout_width="350dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:elevation="8dp"
-        android:layout_margin="10dp"
-        style="@style/authBtnBlue"
-        android:text="Message"
-        android:textAllCaps="false"/>
+    <!-- Loading Overlay -->
+    <RelativeLayout
+        android:id="@+id/taskDetailLoadingOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/semi_transparent_black">
+
+        <!-- Circular ProgressBar -->
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

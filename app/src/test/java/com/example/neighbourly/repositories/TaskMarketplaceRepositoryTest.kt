@@ -1,6 +1,7 @@
+package com.example.neighbourly.repositories
+
 import com.example.neighbourly.models.Task
 import com.example.neighbourly.models.User
-import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.utils.Constants.TASK_COLLECTION
 import com.example.neighbourly.utils.Constants.USER_COLLECTION
 import com.google.firebase.auth.FirebaseAuth
@@ -52,7 +53,7 @@ class TaskMarketplaceRepositoryTest {
     fun `fetchHelpers returns a list of helpers`() = runBlocking {
         // Arrange: Seed Firestore with mock data
         val usersCollection = firestore.collection(USER_COLLECTION)
-        val mockUser = User(id = "1", name = "Test Helper", isHelper = true)
+        val mockUser = User(id = "1", name = "Test Helper", helper = true)
         usersCollection.document("1").set(mockUser).await()
 
         // Act

@@ -8,10 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="wrap_content"
             android:padding="35dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,11 +23,12 @@
 
                 <ImageView
                     android:id="@+id/backToHomeBtn"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
+                    android:layout_width="@dimen/back_btn"
+                    android:layout_height="@dimen/back_btn"
+                    android:contentDescription="@string/back_btn_desc"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:background="@drawable/ic_baseline_back_arrow"
+                    android:background="@drawable/rounded_back_btn"
                     app:layout_constraintBottom_toBottomOf="parent"
                     style="@style/backArrow" />
 
@@ -37,7 +37,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto"
-                    android:text="Post Task"
+                    android:text="@string/post_task"
                     android:textFontWeight="600"
                     android:textSize="25sp"
                     app:layout_constraintHorizontal_bias="0.514"
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/registerPageMargin"
-                android:text="Task Title"
+                android:text="@string/task_title"
                 android:fontFamily="@font/roboto"
                 android:textSize="20sp"
                 android:textFontWeight="500"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/registerPageMargin"
                 android:ems="10"
-                android:hint="Cleaning"
+                android:hint="@string/post_task_title_hint"
                 android:inputType="text"
                 android:padding="15dp"
                 app:layout_constraintTop_toBottomOf="@id/tvPostTaskTitleLabel"
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/registerPageMargin"
-                android:text="Task Description"
+                android:text="@string/task_description"
                 android:fontFamily="@font/roboto"
                 android:textSize="20sp"
                 android:textFontWeight="500"
@@ -110,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/registerPageMargin"
-                android:text="Date"
+                android:text="@string/date_label"
                 android:fontFamily="@font/roboto"
                 android:textSize="20sp"
                 android:textFontWeight="500"
@@ -161,7 +161,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/registerPageMargin"
-                android:text="Time"
+                android:text="@string/time_label"
                 android:fontFamily="@font/roboto"
                 android:textSize="20sp"
                 android:textFontWeight="500"
@@ -210,15 +210,70 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/tvUploadPictureLabel"
+                android:id="@+id/tvLocationLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/registerPageMargin"
-                android:text="Upload Picture"
+                android:text="@string/location_label"
                 android:fontFamily="@font/roboto"
                 android:textSize="20sp"
                 android:textFontWeight="500"
                 app:layout_constraintTop_toBottomOf="@id/timePickerContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/locationContainer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvLocationLabel"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                app:layout_constraintEnd_toEndOf="parent"
+                style="@style/authInputText"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="12dp"
+                >
+
+                <TextView
+                    android:id="@+id/locationHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text=""
+                    android:textColor="@color/inputHint"
+                    android:textSize="16sp"
+                    android:textFontWeight="200"
+                    android:fontFamily="@font/roboto"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/fetchLocationBtn"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <Button
+                    android:id="@+id/fetchLocationBtn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_location_pin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="@dimen/registerPageMargin"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvUploadPictureLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/registerPageMargin"
+                android:text="@string/upload_picture_label"
+                android:fontFamily="@font/roboto"
+                android:textSize="20sp"
+                android:textFontWeight="500"
+                app:layout_constraintTop_toBottomOf="@id/locationContainer"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginTop="20dp"
                 />
@@ -236,7 +291,7 @@
                     android:id="@+id/selectedImageView"
                     android:layout_width="0dp"
                     android:layout_height="100dp"
-                    android:contentDescription="Selected Image Preview"
+                    android:contentDescription="@string/selected_image_preview"
                     android:scaleType="centerCrop"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -266,7 +321,7 @@
                 app:layout_constraintTop_toBottomOf="@id/uploadPictureContainer"
                 android:layout_marginTop="30dp"
                 style="@style/authBtnBlue"
-                android:text="Submit Task"
+                android:text="@string/submit_task_label"
                 android:elevation="10dp"
                 android:textAllCaps="false"
                 android:padding="12dp" />

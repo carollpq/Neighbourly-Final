@@ -4,14 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:padding="20dp">
 
             <!-- Title -->
@@ -19,14 +19,14 @@
                 android:id="@+id/profileTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Profile"
+                android:text="@string/profile_label"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 android:textColor="@color/black"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="@dimen/profile_margin_top" />
 
             <!-- Settings Button -->
             <androidx.appcompat.widget.AppCompatImageView
@@ -34,19 +34,20 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_settings"
-                android:contentDescription="Settings"
+                android:contentDescription="@string/settings"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/profile_margin_top"
                 android:layout_marginEnd="20dp" />
 
             <!-- Profile Image -->
             <ImageView
                 android:id="@+id/profileImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="20dp"
-                android:contentDescription="Profile Image"
+                android:layout_width="@dimen/profile_pic_width_height"
+                android:layout_height="@dimen/profile_pic_width_height"
+                android:layout_marginTop="@dimen/profile_margin_top"
+                android:contentDescription="@string/profile_image_content_desc"
+                android:background="@drawable/profile_pic_placeholder"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toBottomOf="@id/profileTitle"
                 app:layout_constraintStart_toStartOf="parent"
@@ -80,11 +81,11 @@
                 android:id="@+id/aboutMeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="About Me"
+                android:text="@string/about_me_label"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/userEmail"
+                android:layout_marginTop="30dp"
+                app:layout_constraintTop_toBottomOf="@id/editProfileBtn"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
@@ -92,95 +93,154 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
+                android:text="@string/about_me_hint"
                 app:layout_constraintTop_toBottomOf="@id/aboutMeLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="5dp" />
 
-            <!-- Helper Skills (Dynamic) -->
+            <!-- Address Section -->
+            <TextView
+                android:id="@+id/addressLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/address_label"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/aboutMeDesc"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/profile_margin_top" />
+
+            <TextView
+                android:id="@+id/userAddress"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@string/no_address_added"
+                app:layout_constraintTop_toBottomOf="@id/addressLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/profile_details_margin_top" />
+
+            <TextView
+                android:id="@+id/isAHelperLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/is_a_helper"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                app:layout_constraintTop_toBottomOf="@id/userAddress"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="@dimen/profile_margin_top" />
+
+            <TextView
+                android:id="@+id/isHelper"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="No"
+                app:layout_constraintTop_toBottomOf="@id/isAHelperLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/profile_details_margin_top" />
+
             <TextView
                 android:id="@+id/helperSkillsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Skills"
+                android:text="@string/helper_skills_label"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/aboutMeDesc"
+                app:layout_constraintTop_toBottomOf="@id/isHelper"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="@dimen/profile_margin_top" />
 
             <TextView
                 android:id="@+id/helperSkills"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:visibility="gone"
+                android:text="@string/no_skills_listed"
                 app:layout_constraintTop_toBottomOf="@id/helperSkillsLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="@dimen/profile_details_margin_top" />
 
             <!-- Helper Description (Dynamic) -->
             <TextView
                 android:id="@+id/helperDescriptionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description"
+                android:text="@string/helper_description"
                 android:textSize="18sp"
                 android:textColor="@color/black"
-                android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="@id/helperSkills"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="15dp" />
+                android:layout_marginTop="@dimen/profile_margin_top" />
 
             <TextView
                 android:id="@+id/helperDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:visibility="gone"
+                android:text="@string/helper_desc_hint"
                 app:layout_constraintTop_toBottomOf="@id/helperDescriptionLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="@dimen/profile_details_margin_top" />
 
             <!-- Edit Profile Button -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/editProfileBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Edit Profile"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp"
+                android:text="@string/edit_profile"
+                android:layout_marginTop="@dimen/edit_profile_btn_margin"
+                android:layout_marginHorizontal="@dimen/edit_profile_btn_margin"
                 style="@style/authBtnBlue"
-                app:layout_constraintTop_toBottomOf="@id/helperDescription"
+                app:layout_constraintTop_toBottomOf="@id/userEmail"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:id="@+id/tasksPostedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tasks_posted"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/helperDescription"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
             <!-- Tasks RecyclerView -->
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvTaskPostedUserProfile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintTop_toBottomOf="@id/editProfileBtn"
+                android:layout_marginTop="@dimen/profile_margin_top"
+                app:layout_constraintTop_toBottomOf="@id/tasksPostedLabel"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <!-- No Posted Tasks -->
             <TextView
                 android:id="@+id/noPostedTaskMessage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="No tasks posted yet"
+                android:text="@string/profile_no_tasks_posted_message"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/rvTaskPostedUserProfile"
+                app:layout_constraintTop_toBottomOf="@id/tasksPostedLabel"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="@dimen/profile_margin_top"
+                android:layout_marginBottom="70dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <!-- Loading Overlay -->
     <RelativeLayout

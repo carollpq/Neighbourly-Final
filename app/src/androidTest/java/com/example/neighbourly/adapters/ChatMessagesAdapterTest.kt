@@ -1,14 +1,8 @@
 package com.example.neighbourly.adapters
 
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.recyclerview.widget.RecyclerView
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.example.neighbourly.R
-import com.example.neighbourly.databinding.ItemChatMessageReceivedBinding
-import com.example.neighbourly.databinding.ItemChatMessageSentBinding
 import com.example.neighbourly.models.ChatMessage
 import com.google.firebase.Timestamp
 import org.junit.Assert.assertEquals
@@ -39,7 +33,7 @@ class ChatMessagesAdapterTest {
         viewHolder.bind(message)
 
         // Assert
-        assertEquals("Hello!", viewHolder.binding.sentMessageText.text.toString())
+        assertEquals("Hello!", viewHolder.getBinding().sentMessageText.text.toString())
     }
 
     @Test
@@ -61,6 +55,6 @@ class ChatMessagesAdapterTest {
         viewHolder.bind(message)
 
         // Assert
-        assertEquals("Hi!", viewHolder.binding.receivedMessageText.text.toString())
+        assertEquals("Hi!", viewHolder.getBinding().receivedMessageText.text.toString())
     }
 }

@@ -15,11 +15,22 @@ class SearchResultViewModel @Inject constructor(
     private val taskMarketplaceRepository: TaskMarketplaceRepository
 ) : ViewModel() {
 
-    private val _searchResults = MutableStateFlow<OperationResult<List<Any>>>(OperationResult.Unspecified())
+    private val _searchResults =
+        MutableStateFlow<OperationResult<List<Any>>>(OperationResult.Unspecified())
     val searchResults: StateFlow<OperationResult<List<Any>>> = _searchResults
 
     private val _isSearchingHelpers = MutableStateFlow(false)
     val isSearchingHelpers: StateFlow<Boolean> = _isSearchingHelpers
+
+    val currentUserId: String = taskMarketplaceRepository.getCurrentUserId()
+
+    private var latitude: Double? = null
+    private var longitude: Double? = null
+
+    fun setLocation(lat: Double, lon: Double) {
+        latitude = lat
+        longitude = lon
+    }
 
     fun setSearchMode(isHelpers: Boolean) {
         _isSearchingHelpers.value = isHelpers
@@ -35,13 +46,33 @@ class SearchResultViewModel @Inject constructor(
         viewModelScope.launch {
             _searchResults.value = OperationResult.Loading()
             try {
+                // Fetch results based on the search mode (helpers/tasks)
                 val results = if (_isSearchingHelpers.value) {
-                    taskMarketplaceRepository.searchHelpers(query)
+                    if (latitude != null && longitude != null) {
+                        taskMarketplaceRepository.searchHelpersByLocation(
+                            query,
+                            latitude!!,
+                            longitude!!
+                        )
+                    } else {
+                        taskMarketplaceRepository.searchHelpers(query)
+                    }
                 } else {
-                    taskMarketplaceRepository.searchTasks(query)
+                    if (latitude != null && longitude != null) {
+                        taskMarketplaceRepository.searchTasksByLocation(query, latitude!!, longitude!!)
+                    } else {
+                        taskMarketplaceRepository.searchTasks(query)
+                    }
                 }
-                _searchResults.value = OperationResult.Success(results)
+
+                // Update results state
+                _searchResults.value = if (results.isEmpty()) {
+                    OperationResult.Success(emptyList())
+                } else {
+                    OperationResult.Success(results)
+                }
             } catch (e: Exception) {
+                // Handle errors gracefully
                 _searchResults.value = OperationResult.Error(e.message ?: "An error occurred")
             }
         }

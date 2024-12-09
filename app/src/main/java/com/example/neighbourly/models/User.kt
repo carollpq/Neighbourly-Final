@@ -10,7 +10,10 @@ data class User(
     val joinedSince: Timestamp? = null,
     val imageUri: String? = null,
     val address: String? = null,
-    val isHelper: Boolean? = false,
-    val skills: List<String>? = emptyList(), // Helper-specific
-    val helperDescription: String? = null // Helper-specific
+    val helper: Boolean? = false,
+    val skills: String?= null,
+    val helperDescription: String? = null, // Helper-specific
+    val latitude: Double? = null, // Location-specific
+    val longitude: Double? = null, // Location-specific
+    val fcmToken: String? = null // Firebase Cloud Messaging token
 )

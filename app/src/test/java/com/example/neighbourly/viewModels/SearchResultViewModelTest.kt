@@ -1,4 +1,4 @@
-package com.example.neighbourly
+package com.example.neighbourly.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.neighbourly.models.Task
@@ -50,7 +50,7 @@ class SearchResultViewModelTest {
     @Test
     fun `searchHelpers should emit matching helpers`() = runTest {
         // Mock data
-        val helpers = listOf(User(name = "Alice", skills = listOf("Plumbing")))
+        val helpers = listOf(User(name = "Alice", skills = "Plumbing"))
         coEvery { mockRepository.searchHelpers("Plumbing") } returns helpers
 
         // Execute

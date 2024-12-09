@@ -1,5 +1,6 @@
 package com.example.neighbourly.viewmodel.taskMarketplace
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.neighbourly.models.ChatMessage
@@ -24,16 +25,14 @@ class IndividualChatViewModel @Inject constructor(
      * Load chat messages for a given chat ID.
      */
     fun loadChatMessages(chatId: String) {
-        viewModelScope.launch {
-            _chatMessages.emit(OperationResult.Loading())
-            try {
-                val messages = chatRepository.fetchMessages(chatId)
+        chatRepository.listenToMessages(chatId) { messages ->
+            viewModelScope.launch {
+                Log.d("IndividualChatViewModel", "Messages loaded for chat $chatId: $messages")
                 _chatMessages.emit(OperationResult.Success(messages))
-            } catch (e: Exception) {
-                _chatMessages.emit(OperationResult.Error(e.message ?: "Failed to load messages"))
             }
         }
     }
+
 
     /**
      * Send a new message.
@@ -41,20 +40,19 @@ class IndividualChatViewModel @Inject constructor(
     fun sendMessage(chatId: String, text: String) {
         viewModelScope.launch {
             try {
-                val message = chatRepository.getCurrentUserId()?.let {
-                    ChatMessage(
-                        senderId = it,
+                val senderId = chatRepository.getCurrentUserId()
+                if (senderId != null) {
+                    val newMessage = ChatMessage(
+                        senderId = senderId,
                         text = text,
                         timestamp = com.google.firebase.Timestamp(Date())
                     )
+                    chatRepository.sendMessage(chatId, newMessage)
                 }
-                if (message != null) {
-                    chatRepository.sendMessage(chatId, message)
-                }
-                loadChatMessages(chatId) // Refresh the messages after sending
             } catch (e: Exception) {
                 // Optionally handle send errors
             }
         }
     }
+
 }

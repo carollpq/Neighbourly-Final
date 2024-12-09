@@ -118,6 +118,8 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     }
 
     private fun showError(message: String) {
+        // Hide the loading overlay and progress bar
+        showLoadingState(false)
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 

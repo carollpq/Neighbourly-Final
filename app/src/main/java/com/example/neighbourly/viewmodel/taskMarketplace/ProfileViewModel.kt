@@ -35,10 +35,15 @@ class ProfileViewModel @Inject constructor(
             try {
                 val user = repository.fetchCurrentUser()
                 _userDetails.emit(OperationResult.Success(user))
+                fetchUserPostedTasks()
             } catch (e: Exception) {
                 _userDetails.emit(OperationResult.Error(e.message ?: "Error fetching user details"))
             }
         }
+    }
+
+    fun getCurrentUserId(): String {
+        return repository.getCurrentUserId()
     }
 
     /**
@@ -46,42 +51,31 @@ class ProfileViewModel @Inject constructor(
      */
     fun fetchUserPostedTasks() {
         viewModelScope.launch {
-            _userTasks.emit(OperationResult.Loading())
             try {
                 val tasks = repository.fetchTasksByCurrentUser()
-                _userTasks.emit(OperationResult.Success(tasks))
+                if (tasks.isEmpty()) {
+                    _userTasks.emit(OperationResult.Success(emptyList()))
+                } else {
+                    _userTasks.emit(OperationResult.Success(tasks))
+                }
             } catch (e: Exception) {
                 _userTasks.emit(OperationResult.Error(e.message ?: "Error fetching tasks"))
             }
         }
     }
 
-    /**
-     * Update the authenticated user's details.
-     */
-    fun updateUserDetails(user: User) {
-        viewModelScope.launch {
-            _userDetails.emit(OperationResult.Loading())
-            try {
-                repository.updateUserDetails(user)
-                fetchAuthenticatedUserDetails() // Refresh details after update
-            } catch (e: Exception) {
-                _userDetails.emit(OperationResult.Error(e.message ?: "Error updating user details"))
-            }
-        }
-    }
 
     /**
      * Toggle helper profile status.
      */
-    fun toggleHelperProfile(isHelper: Boolean, skills: List<String>? = null, helperDescription: String? = null) {
+    fun toggleHelperProfile(isHelper: Boolean, skills: String ?= null, helperDescription: String? = null) {
         viewModelScope.launch {
             _userDetails.emit(OperationResult.Loading())
             try {
                 val user = repository.fetchCurrentUser().copy(
-                    isHelper = isHelper,
-                    skills = if (isHelper) skills else emptyList(),
-                    helperDescription = if (isHelper) helperDescription else null
+                    helper = isHelper,
+                    skills = skills,
+                    helperDescription = helperDescription
                 )
                 repository.updateUserDetails(user)
                 fetchAuthenticatedUserDetails() // Refresh after toggle
@@ -91,11 +85,22 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+
     /**
-     * Sign out the authenticated user.
+     * Sign out the authenticated user and clear FCM token.
      */
     fun signOut() {
-        repository.signOut()
-        _signOutEvent.value = true
+        viewModelScope.launch {
+            try {
+                val currentUserId = repository.getCurrentUserId()
+                if (currentUserId.isNotEmpty()) {
+                    repository.clearFCMToken(currentUserId) // Clear FCM token in Firestore
+                }
+                repository.signOut() // Perform Firebase Auth sign out
+                _signOutEvent.value = true // Notify observers that sign-out is complete
+            } catch (e: Exception) {
+                // Log or handle sign-out errors if needed
+            }
+        }
     }
 }

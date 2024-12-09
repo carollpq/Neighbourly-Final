@@ -3,63 +3,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/task_marketplace_graph"
-    app:startDestination="@id/homeFragment2">
+    app:startDestination="@id/homeFragment">
 
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/homeFragment"
         android:name="com.example.neighbourly.fragments.taskMarketplace.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
-            android:id="@+id/action_homeFragment2_to_searchResultFragment"
+            android:id="@+id/action_homeFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
         <action
-            android:id="@+id/action_homeFragment2_to_postTaskFragment"
+            android:id="@+id/action_homeFragment_to_helperDetailFragment"
+            app:destination="@id/helperDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_taskDetailFragment2"
+            app:destination="@id/taskDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postTaskFragment"
             app:destination="@id/postTaskFragment" />
         <action
-            android:id="@+id/action_homeFragment2_to_taskDetailFragment"
-            app:destination="@id/taskDetailFragment">
-            <argument
-                android:name="TASK_ID"
-                app:argType="com.example.neighbourly.models.Task" />
-        </action>
-        <action
-            android:id="@+id/action_homeFragment2_to_helperDetailFragment"
-            app:destination="@id/helperDetailFragment" />
-            <argument
-                android:name="helperId"
-                app:argType="string" /> <!-- Helper ID passed as a string -->
-    </fragment>
-    <fragment
-        android:id="@+id/messagesFragment2"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.MessagesFragment"
-        android:label="MessagesFragment"
-        tools:layout="@layout/fragment_messages">
-        <action
-            android:id="@+id/action_messagesFragment2_to_individualChatFragment"
-            app:destination="@id/individualChatFragment">
-            <argument
-                android:name="chatId"
-                app:argType="string" /> <!-- Chat ID passed for accessing specific chat -->
-            <argument
-                android:name="otherUserId"
-                app:argType="string" /> <!-- ID of the other user in the chat -->
-        </action>
-    </fragment>
-    <fragment
-        android:id="@+id/profileFragment2"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile">
-        <action
-            android:id="@+id/action_profileFragment2_to_editProfileFragment"
-            app:destination="@id/editProfileFragment" />
-        <action
-            android:id="@+id/action_profileFragment2_to_helperProfileFragment"
-            app:destination="@id/helperProfileFragment" />
-        <action
-            android:id="@+id/action_profileFragment2_to_editHelperProfileFragment"
-            app:destination="@id/editHelperProfileFragment" />
+            android:id="@+id/action_homeFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/searchResultFragment"
@@ -67,82 +32,41 @@
         android:label="SearchResultFragment"
         tools:layout="@layout/fragment_search_result">
         <action
-            android:id="@+id/action_searchResultFragment_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
-        <argument
-            android:name="headerLabel"
-            app:argType="string" />
-        <argument
-            android:name="searchType"
-            app:argType="string" />
+            android:id="@+id/action_searchResultFragment_to_helperDetailFragment"
+            app:destination="@id/helperDetailFragment" />
         <action
             android:id="@+id/action_searchResultFragment_to_taskDetailFragment"
             app:destination="@id/taskDetailFragment" />
         <action
-            android:id="@+id/action_searchResultFragment_to_helperDetailFragment"
+            android:id="@+id/action_searchResultFragment_to_helperDetailFragment2"
             app:destination="@id/helperDetailFragment" />
     </fragment>
     <fragment
-        android:id="@+id/postTaskFragment"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.PostTaskFragment"
-        android:label="PostTaskFragment"
-        tools:layout="@layout/fragment_post_task">
+        android:id="@+id/helperDetailFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.HelperDetailFragment"
+        android:label="HelperDetailFragment"
+        tools:layout="@layout/fragment_helper_detail">
+        <argument
+            android:name="HELPER_ID"
+            app:argType="string" />
         <action
-            android:id="@+id/action_postTaskFragment_to_homeFragment2"
-            app:destination="@id/homeFragment2" />
+            android:id="@+id/action_helperDetailFragment_to_individualChatFragment"
+            app:destination="@id/individualChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/taskDetailFragment"
         android:name="com.example.neighbourly.fragments.taskMarketplace.TaskDetailFragment"
         android:label="TaskDetailFragment"
         tools:layout="@layout/fragment_task_detail">
+        <argument
+            android:name="TASK_ID"
+            app:argType="string" />
         <action
             android:id="@+id/action_taskDetailFragment_to_individualChatFragment"
-            app:destination="@id/individualChatFragment">
-            <argument
-                android:name="chatId"
-                app:argType="string" /> <!-- Chat ID for newly created or existing chat -->
-            <argument
-                android:name="otherUserId"
-                app:argType="string" /> <!-- Helper or user to chat with -->
-        </action>
-    </fragment>
-        <argument
-            android:name="task"
-            app:argType="com.example.neighbourly.models.Task" />
-    <fragment
-        android:id="@+id/editProfileFragment"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.EditUserProfileFragment"
-        android:label="EditProfileFragment"
-        tools:layout="@layout/fragment_edit_profile"/>
-    <fragment
-        android:id="@+id/helperProfileFragment"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.HelperProfileFragment"
-        android:label="HelperProfileFragment"
-        tools:layout="@layout/fragment_helper_profile">
-        <action
-            android:id="@+id/action_helperProfileFragment_to_editHelperProfileFragment"
-            app:destination="@id/editHelperProfileFragment" />
-        <action
-            android:id="@+id/action_helperProfileFragment_to_profileFragment2"
-            app:destination="@id/profileFragment2" />
-    </fragment>
-    <fragment
-        android:id="@+id/editHelperProfileFragment"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.EditHelperProfileFragment"
-        android:label="EditHelperProfileFragment"
-        tools:layout="@layout/fragment_edit_helper_profile"/>
-    <fragment
-        android:id="@+id/helperDetailFragment"
-        android:name="com.example.neighbourly.fragments.taskMarketplace.HelperDetailFragment"
-        android:label="HelperDetailFragment"
-        tools:layout="@layout/fragment_helper_detail">
-        <action
-            android:id="@+id/action_helperDetailFragment_to_individualChatFragment"
             app:destination="@id/individualChatFragment" />
-        <argument
-            android:name="helper"
-            app:argType="com.example.neighbourly.models.Helper" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_editPostFragment"
+            app:destination="@id/editPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/individualChatFragment"
@@ -150,18 +74,58 @@
         android:label="IndividualChatFragment"
         tools:layout="@layout/fragment_individual_chat">
         <argument
-            android:name="chatId"
+            android:name="CHAT_ID"
             app:argType="string" />
         <argument
-            android:name="otherUserId"
+            android:name="USER_ID"
             app:argType="string" />
         <argument
-            android:name="otherUserName"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="USER_NAME"
+            app:argType="string" />
         <argument
-            android:name="otherUserProfilePic"
-            app:argType="string"
-            app:nullable="true" />
+            android:name="USER_PROFILE_PIC"
+            app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_taskDetailFragment"
+            app:destination="@id/taskDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.EditProfileFragment"
+        android:label="EditProfileFragment"
+        tools:layout="@layout/fragment_edit_profile">
+    </fragment>
+    <fragment
+        android:id="@+id/messagesFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.MessagesFragment"
+        android:label="MessagesFragment"
+        tools:layout="@layout/fragment_messages">
+        <action
+            android:id="@+id/action_messagesFragment_to_individualChatFragment"
+            app:destination="@id/individualChatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postTaskFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.PostTaskFragment"
+        android:label="PostTaskFragment"
+        tools:layout="@layout/fragment_post_task"/>
+    <fragment
+        android:id="@+id/editPostFragment"
+        android:name="com.example.neighbourly.fragments.taskMarketplace.EditPostFragment"
+        android:label="EditPostFragment"
+        tools:layout="@layout/fragment_edit_post">
+        <argument
+            android:name="TASK_ID"
+            app:argType="string" />
+    </fragment>
+
 </navigation>

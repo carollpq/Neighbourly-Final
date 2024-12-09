@@ -1,7 +1,6 @@
-package com.example.neighbourly
+package com.example.neighbourly.repositories
 
 import com.example.neighbourly.models.ChatMessage
-import com.example.neighbourly.repositories.ChatRepository
 import com.example.neighbourly.utils.Constants.CHAT_MESSAGES_COLLECTION
 import com.example.neighbourly.utils.Constants.MESSAGE_SUB_COLLECTION
 import com.google.firebase.auth.FirebaseAuth

@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <style name="authTitle">
+        <item name="android:fontFamily">@font/nunitoblack</item>
+        <item name="android:textSize">@dimen/font_size_title</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="authSubtitle">
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">@dimen/font_size_text</item>
+    </style>
+
     <style name="authInputText">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/inputHint</item>
@@ -24,15 +37,12 @@
         <item name="android:background">@drawable/auth_grey_btn</item>
     </style>
 
-    <style name="googleAuthBtn">
-        <item name="android:textSize">20sp</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:fontFamily">@font/roboto</item>
-        <item name="android:textFontWeight">400</item>
-        <item name="android:background">@drawable/google_auth_btn</item>
-    </style>
 
     <style name="backArrow">
         <item name="color">@color/black</item>
     </style>
+
+    <style name="FragmentScenarioEmptyFragmentActivityTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
 </resources>

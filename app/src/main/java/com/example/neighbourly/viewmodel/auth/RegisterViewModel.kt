@@ -70,10 +70,17 @@ class RegisterViewModel @Inject constructor(
     }
 
     private fun validatePassword(password: String, confirmPassword: String): RegisterValidation {
-        return if (password.length >= 6 && password == confirmPassword) {
-            RegisterValidation.Success
-        } else {
-            RegisterValidation.Failed("Passwords do not match or are too short")
+        // Define the stricter password criteria using a regular expression
+        val passwordPattern = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@\$!%*?&])[A-Za-z\\d@\$!%*?&]{8,}$"
+
+        return when {
+            password != confirmPassword -> RegisterValidation.Failed("Passwords do not match")
+            !password.matches(passwordPattern.toRegex()) -> RegisterValidation.Failed(
+                "Password must be at least 8 characters long, contain at least one uppercase letter, " +
+                        "one lowercase letter, one number, and one special character"
+            )
+            else -> RegisterValidation.Success
         }
     }
+
 }

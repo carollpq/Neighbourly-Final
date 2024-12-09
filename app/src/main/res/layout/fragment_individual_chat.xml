@@ -21,9 +21,9 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/individualChatBackButton"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:background="@drawable/ic_baseline_back_arrow"
+            android:layout_width="@dimen/back_btn"
+            android:layout_height="@dimen/back_btn"
+            android:background="@drawable/rounded_back_btn"
             android:layout_marginEnd="20dp"/>
 
         <!-- Profile Picture -->
@@ -32,6 +32,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginEnd="8dp"
+            android:contentDescription="@string/user_pfp_desc"
             android:src="@drawable/profile_pic_placeholder"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +44,7 @@
             android:id="@+id/chatUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="User Name"
+            android:text="@string/user_name"
             android:textColor="@android:color/white"
             android:textSize="18sp"
             android:layout_marginStart="10dp"
@@ -83,7 +84,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="Type a message"
+            android:autofillHints=""
+            android:hint="@string/input_message_hint"
             android:padding="10dp"
             android:background="@drawable/message_input_background"
             android:inputType="text"
@@ -98,6 +100,7 @@
             android:id="@+id/messageSendButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:contentDescription="@string/icon_for_sending_message"
             android:src="@drawable/ic_send"
             android:background="?attr/selectableItemBackgroundBorderless" />
     </LinearLayout>

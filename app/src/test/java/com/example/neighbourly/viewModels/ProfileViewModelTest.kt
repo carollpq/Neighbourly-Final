@@ -1,6 +1,5 @@
-package com.example.neighbourly
+package com.example.neighbourly.viewModels
 
-import com.example.neighbourly.di.FirebaseModule
 import com.example.neighbourly.models.Task
 import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
@@ -8,8 +7,6 @@ import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.viewmodel.taskMarketplace.ProfileViewModel
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.UninstallModules
-import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.coJustRun
 import io.mockk.coVerify
@@ -67,11 +64,11 @@ class ProfileViewModelTest {
 
     @Test
     fun `toggleHelperProfile updates user details`() = runTest {
-        val user = User(id = "user1", isHelper = false)
+        val user = User(id = "user1", helper = false)
         coEvery { repository.fetchCurrentUser() } returns user
         coJustRun { repository.updateUserDetails(any()) }
 
-        viewModel.toggleHelperProfile(isHelper = true, skills = listOf("Skill1"), helperDescription = "Helper Desc")
+        viewModel.toggleHelperProfile(isHelper = true, skills = "Skill1", helperDescription = "Helper Desc")
 
         coVerify { repository.updateUserDetails(any()) }
         assertTrue(viewModel.userDetails.first() is OperationResult.Success)

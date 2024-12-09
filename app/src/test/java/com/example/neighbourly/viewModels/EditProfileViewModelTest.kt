@@ -1,11 +1,9 @@
-package com.example.neighbourly
+package com.example.neighbourly.viewModels
 
-import android.net.Uri
 import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.viewmodel.taskMarketplace.EditProfileViewModel
 import io.mockk.coEvery
-import io.mockk.coVerify
 import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
@@ -41,7 +39,7 @@ class EditProfileViewModelTest {
     @Test
     fun `loadUserProfile updates user and isHelper on success`() = runTest {
         // Arrange
-        val mockUser = User(id = "1", name = "John Doe", isHelper = true)
+        val mockUser = User(id = "1", name = "John Doe", helper = true)
         coEvery { mockRepository.fetchCurrentUser() } returns mockUser
 
         // Act
@@ -49,7 +47,6 @@ class EditProfileViewModelTest {
 
         // Assert
         assertEquals(mockUser, viewModel.user.first())
-        assertEquals(true, viewModel.isHelper.first())
         assertEquals(false, viewModel.loading.first()) // Ensure loading is false after execution
     }
 
@@ -63,7 +60,6 @@ class EditProfileViewModelTest {
 
         // Assert
         assertNull(viewModel.user.first())
-        assertEquals(false, viewModel.isHelper.first())
     }
 
     @Test

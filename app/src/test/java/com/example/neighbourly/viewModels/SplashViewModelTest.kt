@@ -1,4 +1,4 @@
-package com.example.neighbourly
+package com.example.neighbourly.viewModels
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.example.neighbourly.repositories.UserRepository

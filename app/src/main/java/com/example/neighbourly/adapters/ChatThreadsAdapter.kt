@@ -1,5 +1,6 @@
 package com.example.neighbourly.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -18,7 +19,7 @@ import java.util.Locale
 
 class ChatThreadsAdapter(
     private val currentUserId: String,
-    private val userDetailsCache: Map<String, User>,
+    private var userDetailsCache: Map<String, User>,
     private val onChatClick: (String, String, String?, String?) -> Unit
 ) : RecyclerView.Adapter<ChatThreadsAdapter.ChatViewHolder>() {
 
@@ -29,11 +30,12 @@ class ChatThreadsAdapter(
             val otherUserId = chatThread.userIds.firstOrNull { it != currentUserId } ?: return
             val userDetails = userDetailsCache[otherUserId]
             val userName = userDetails?.name ?: "Unknown User"
-            val profilePic = userDetails?.imageUri
+            val profilePic = userDetails?.imageUri ?: ""
+
 
             binding.messageUserName.text = userName
             Glide.with(binding.root.context)
-                .load(profilePic?.ifEmpty { R.drawable.placeholder_img } ?: R.drawable.placeholder_img)
+                .load(profilePic.ifEmpty { R.drawable.profile_pic_placeholder })
                 .circleCrop()
                 .into(binding.messageUserPic)
 
@@ -53,6 +55,12 @@ class ChatThreadsAdapter(
                 "Invalid time"
             }
         }
+    }
+
+
+    fun updateUserDetailsCache(newCache: Map<String, User>) {
+        this.userDetailsCache = newCache
+        notifyDataSetChanged() // Trigger rebind for updated user details
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatViewHolder {

@@ -23,40 +23,39 @@ class HomeViewModel @Inject constructor(
     private val _nearbyHelpers = MutableStateFlow<OperationResult<List<User>>>(OperationResult.Unspecified())
     val nearbyHelpers: StateFlow<OperationResult<List<User>>> = _nearbyHelpers
 
-    private val pagingInfo = PagingInfo()
+    val currentUserId: String = taskMarketplaceRepository.getCurrentUserId()
 
-    init {
-        fetchNearbyTasks()
-        fetchNearbyHelpers()
-    }
-
-    fun fetchNearbyTasks() {
+    fun fetchNearbyTasks(latitude: Double, longitude: Double, radius: Double) {
         viewModelScope.launch {
             _nearbyTasks.emit(OperationResult.Loading())
             try {
-                val tasks = taskMarketplaceRepository.fetchTasks(limit = 5, page = pagingInfo.page)
-                _nearbyTasks.emit(OperationResult.Success(tasks))
-                pagingInfo.page++
+                val tasks = taskMarketplaceRepository.fetchTasks()
+                val filteredTasks = tasks.filter { task ->
+                    val taskLat = task.latitude ?: 0.0
+                    val taskLon = task.longitude ?: 0.0
+                    taskMarketplaceRepository.calculateDistance(taskLat, taskLon, latitude, longitude) <= radius
+                }
+                _nearbyTasks.emit(OperationResult.Success(if (filteredTasks.isNotEmpty()) filteredTasks else tasks))
             } catch (e: Exception) {
                 _nearbyTasks.emit(OperationResult.Error(e.message ?: "Unknown error"))
             }
         }
     }
 
-    fun fetchNearbyHelpers() {
+    fun fetchNearbyHelpers(latitude: Double, longitude: Double, radius: Double) {
         viewModelScope.launch {
             _nearbyHelpers.emit(OperationResult.Loading())
             try {
-                val helpers = taskMarketplaceRepository.fetchHelpers(limit = 5, page = pagingInfo.page)
-                _nearbyHelpers.emit(OperationResult.Success(helpers))
-                pagingInfo.page++
+                val helpers = taskMarketplaceRepository.fetchHelpers()
+                val filteredHelpers = helpers.filter { helper ->
+                    val helperLat = helper.latitude ?: 0.0
+                    val helperLon = helper.longitude ?: 0.0
+                    taskMarketplaceRepository.calculateDistance(helperLat, helperLon, latitude, longitude) <= radius
+                }
+                _nearbyHelpers.emit(OperationResult.Success(if (filteredHelpers.isNotEmpty()) filteredHelpers else helpers))
             } catch (e: Exception) {
                 _nearbyHelpers.emit(OperationResult.Error(e.message ?: "Unknown error"))
             }
         }
     }
 }
-
-data class PagingInfo(
-    var page: Long = 1
-)

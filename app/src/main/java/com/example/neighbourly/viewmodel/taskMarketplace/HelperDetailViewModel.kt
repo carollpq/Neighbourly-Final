@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.ChatRepository
+import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.repositories.UserRepository
 import com.example.neighbourly.utils.OperationResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HelperDetailViewModel @Inject constructor(
     private val userRepository: UserRepository,
-    private val chatRepository: ChatRepository
+    private val chatRepository: ChatRepository,
+    private val taskMarketplaceRepository: TaskMarketplaceRepository
 ) : ViewModel() {
 
     // State for the helper details
@@ -27,14 +29,14 @@ class HelperDetailViewModel @Inject constructor(
     val chatIdState: StateFlow<OperationResult<String>> = _chatIdState
 
     /**
-    * Fetch details for a specific helper by their ID.
-    */
+     * Fetch details for a specific helper by their ID.
+     */
     fun fetchHelperDetails(helperId: String) {
         viewModelScope.launch {
             _helperState.emit(OperationResult.Loading())
             try {
                 val user = userRepository.fetchUser(helperId)
-                if (user?.isHelper == true) {
+                if (user?.helper == true) {
                     _helperState.emit(OperationResult.Success(user))
                 } else {
                     _helperState.emit(OperationResult.Error("The user is not a helper."))
@@ -60,6 +62,10 @@ class HelperDetailViewModel @Inject constructor(
                 _chatIdState.emit(OperationResult.Error("Failed to initiate chat: ${e.message}"))
             }
         }
+    }
+
+    fun getCurrentUserId(): String {
+        return taskMarketplaceRepository.getCurrentUserId() // Fetch current user ID from repository
     }
 
 }

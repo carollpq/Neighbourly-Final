@@ -1,5 +1,6 @@
 package com.example.neighbourly.viewmodel.taskMarketplace
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.neighbourly.models.ChatThread
@@ -23,10 +24,6 @@ class MessagesViewModel @Inject constructor(
     private val _userDetailsCache = MutableStateFlow<Map<String, User>>(emptyMap())
     val userDetailsCache: StateFlow<Map<String, User>> = _userDetailsCache
 
-    init {
-        fetchChatThreads()
-    }
-
     // Fetch chat threads for the current user
     fun fetchChatThreads() {
         viewModelScope.launch {
@@ -43,9 +40,20 @@ class MessagesViewModel @Inject constructor(
 
     private suspend fun prefetchUserDetails(threads: List<ChatThread>) {
         val userIds = threads.flatMap { it.userIds }.distinct()
-        val userDetails = userIds.associateWith { chatRepository.fetchUserProfile(it) }
+        val userDetails = mutableMapOf<String, User>()
+
+        for (userId in userIds) {
+            try {
+                val user = chatRepository.fetchUserProfile(userId)
+                userDetails[userId] = user
+            } catch (e: Exception) {
+                Log.e("MessagesViewModel", "Failed to fetch user details for $userId: ${e.message}")
+            }
+        }
+
         _userDetailsCache.emit(userDetails)
     }
+
 
     fun getCurrentUserId(): String? {
         return chatRepository.getCurrentUserId()

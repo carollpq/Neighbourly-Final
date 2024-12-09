@@ -9,6 +9,8 @@ data class Task(
     var imageUri: String = "",
     val userId: String = "",
     val address: String = "",
+    val latitude: Double? = null, // New field
+    val longitude: Double? = null, // New field
     val submittedAt: Long = 0L, // Timestamp in milliseconds
     val status: String = "open" // Default to open
 )

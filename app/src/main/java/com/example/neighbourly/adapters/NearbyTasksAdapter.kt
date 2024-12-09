@@ -2,7 +2,9 @@ package com.example.neighbourly.adapters
 
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,45 +12,57 @@ import com.bumptech.glide.Glide
 import com.example.neighbourly.R
 import com.example.neighbourly.models.Task
 import com.example.neighbourly.databinding.CardviewTaskHelperBinding
+import com.example.neighbourly.utils.DialogUtils
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-class NearbyTasksAdapter: RecyclerView.Adapter<NearbyTasksAdapter.NearbyTasksViewHolder>() {
+class NearbyTasksAdapter(
+    private val currentUserId: String, // Pass the current user's ID
+    private val fragmentActivity: FragmentActivity // Pass the FragmentActivity
+): RecyclerView.Adapter<NearbyTasksAdapter.NearbyTasksViewHolder>() {
 
     /**
      * ViewHolder class to hold and bind views for each task item.
      */
     inner class NearbyTasksViewHolder(private val binding: CardviewTaskHelperBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
 
-                /**
-                 * Binds the task data to the views in the ViewHolder.
-                 * @param task The task object containing details like title, description, and image.
-                 */
-                fun bind(task: Task) {
-                    // Parse the image URI, falling back to a placeholder image if unavailable.
-                    val uri = if (!task.imageUri.isNullOrEmpty()) {
-                        Uri.parse(task.imageUri)
-                    } else {
-                        Uri.EMPTY
-                    }
+        /**
+         * Binds the task data to the views in the ViewHolder.
+         * @param task The task object containing details like title, description, and image.
+         */
+        fun bind(task: Task) {
+            // Parse the image URI, falling back to a placeholder image if unavailable.
+            val uri = if (!task.imageUri.isNullOrEmpty()) {
+                Uri.parse(task.imageUri)
+            } else {
+                Uri.EMPTY
+            }
 
-                    // Use Glide to load the image and bind other data to the respective views.
-                    binding.apply {
-                        Glide.with(root.context)
-                            .load(uri.takeIf { it != Uri.EMPTY } ?: R.drawable.placeholder_img)
-                            .placeholder(R.drawable.placeholder_img) // Show placeholder while loading
-                            .into(cardImg) // Set the image in the ImageView
+            // Convert the task's time (Long?) to a readable string
+            val formattedTime = task.time?.let {
+                val sdf = SimpleDateFormat("hh:mm a", Locale.getDefault())
+                sdf.format(it)
+            } ?: "N/A" // Fallback in case time is null
 
-                        cardTitle.text = task.title // Set the task title
-                        cardDesc.text = task.description // Set the task description
-                        cardTags.text = "Preferred date: ${task.date} at ${task.time}" // Set the task date or tags
+            // Use Glide to load the image and bind other data to the respective views.
+            binding.apply {
+                Glide.with(root.context)
+                    .load(uri.takeIf { it != Uri.EMPTY } ?: R.drawable.placeholder_img)
+                    .placeholder(R.drawable.placeholder_img) // Show placeholder while loading
+                    .into(cardImg) // Set the image in the ImageView
 
-                        // Set up a click listener for the task item.
-                        itemView.setOnClickListener {
-                            onTaskClickListener?.invoke(task) // Trigger the click callback
-                        }
-                    }
+                cardTitle.text = task.title // Set the task title
+                cardDesc.text = task.description // Set the task description
+                cardTags.text = "Preferred date: ${task.date} at ${formattedTime}" // Set the task date or tags
+
+                // Set up a click listener for the task item.
+                itemView.setOnClickListener {
+                    onTaskClickListener?.invoke(task) // Trigger the click callback
                 }
             }
+        }
+    }
 
     /**
      * DiffUtil callback for efficient list updates.

@@ -6,7 +6,6 @@ import com.example.neighbourly.repositories.ChatRepository
 import com.google.firebase.Timestamp
 import io.mockk.coEvery
 import io.mockk.mockk
-import kotlinx.coroutines.flow.flow
 
 val mockChatRepository: ChatRepository = mockk {
     coEvery { fetchChatThreads() } returns listOf(

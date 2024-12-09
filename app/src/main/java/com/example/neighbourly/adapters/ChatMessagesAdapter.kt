@@ -57,6 +57,9 @@ class ChatMessagesAdapter :
                 binding.sentMessageTimestamp.text = "Invalid time"
             }
         }
+
+        // Public getter for testing
+        fun getBinding(): ItemChatMessageSentBinding = binding
     }
 
     inner class ReceivedMessageViewHolder(private val binding: ItemChatMessageReceivedBinding) :
@@ -73,6 +76,9 @@ class ChatMessagesAdapter :
                 binding.receivedMessageTimestamp.text = "Invalid time"
             }
         }
+
+        // Public getter for testing
+        fun getBinding(): ItemChatMessageReceivedBinding = binding
     }
 
     companion object {

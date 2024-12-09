@@ -1,0 +1,14 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.neighbourly.test">
+
+    <application
+        android:name="dagger.hilt.android.testing.HiltTestApplication"
+        android:label="Neighbourly Test" />
+
+    <instrumentation
+        android:name="androidx.test.runner.AndroidJUnitRunner"
+        android:targetPackage="com.example.neighbourly"
+        android:label="Neighbourly Tests" />
+</manifest>
+
+

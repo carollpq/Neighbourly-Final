@@ -10,7 +10,7 @@
         android:id="@+id/switchSearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Switch to Nearby Helpers"
+        android:text="@string/switch_to_nearby_helpers"
         android:textSize="16sp"
         android:padding="8dp" />
 

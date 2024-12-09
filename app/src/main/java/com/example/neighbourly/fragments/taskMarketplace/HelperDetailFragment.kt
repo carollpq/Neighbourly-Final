@@ -23,10 +23,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class HelperDetailFragment : Fragment(R.layout.fragment_helper_detail) {
 
+    // View binding for accessing UI elements
     private var _binding: FragmentHelperDetailBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<HelperDetailViewModel>()
 
+    // Holds the ID of the helper to fetch details for
     private lateinit var helperId: String
 
     override fun onCreateView(
@@ -48,7 +50,6 @@ class HelperDetailFragment : Fragment(R.layout.fragment_helper_detail) {
             return
         }
 
-
         setupObservers()
         setupUIActions()
 
@@ -56,6 +57,9 @@ class HelperDetailFragment : Fragment(R.layout.fragment_helper_detail) {
         viewModel.fetchHelperDetails(helperId)
     }
 
+    /**
+     * Set up observers to handle ViewModel state updates.
+     */
     private fun setupObservers() {
         // Observe helper details
         lifecycleScope.launch {
@@ -100,8 +104,16 @@ class HelperDetailFragment : Fragment(R.layout.fragment_helper_detail) {
         binding.helperMessageBtn.setOnClickListener {
             viewModel.initiateChat(helperId)
         }
+
+        // Back button
+        binding.helperDetailBackBtn.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
 
+    /**
+     * Bind helper details to the UI.
+     */
     private fun bindHelperDetails(helper: User) {
         binding.helperName.text = helper.name ?: "N/A"
         Glide.with(binding.root.context)
@@ -109,26 +121,46 @@ class HelperDetailFragment : Fragment(R.layout.fragment_helper_detail) {
             .placeholder(R.drawable.placeholder_img)
             .into(binding.helperImage)
 
-        binding.helperSkills.text = helper.skills?.joinToString(", ") ?: "No skills listed"
+        binding.addressLocation.text = helper.address ?: "No address given"
+        binding.helperSkills.text = helper.skills ?: "No skills listed"
         binding.helperDescription.text = helper.helperDescription ?: "No description provided"
+
+        // Hide the message button if the helper is the current user
+        val currentUserId = viewModel.getCurrentUserId()
+        if (helperId == currentUserId) {
+            binding.helperMessageBtn.visibility = View.GONE
+        } else {
+            binding.helperMessageBtn.visibility = View.VISIBLE
+        }
     }
 
+    /**
+     * Navigate to the chat screen with the provided chat ID.
+     */
     private fun navigateToChat(chatId: String) {
         showLoading(false)
         findNavController().navigate(
             R.id.action_helperDetailFragment_to_individualChatFragment,
             Bundle().apply {
                 putString("CHAT_ID", chatId)
-                putString("USER_ID", helperId)
-                putString("USER_NAME", (viewModel.helperState.value as? OperationResult.Success)?.data?.name)
-                putString("USER_PROFILE_PIC", (viewModel.helperState.value as? OperationResult.Success)?.data?.imageUri)
+
+                val helperData = (viewModel.helperState.value as? OperationResult.Success)?.data
+
+                putString("USER_ID", helperData?.id ?: "default_user_id")
+                putString("USER_NAME", helperData?.name ?: "Unknown User")
+                putString("USER_PROFILE_PIC", helperData?.imageUri ?: "")
             }
+
         )
     }
 
-
     private fun showLoading(isLoading: Boolean) {
         binding.helperLoadingOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.fetchHelperDetails(helperId) // Refresh helper details
     }
 
     override fun onDestroyView() {

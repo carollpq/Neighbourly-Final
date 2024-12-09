@@ -20,9 +20,6 @@ class EditProfileViewModel @Inject constructor(
     private val _user = MutableStateFlow<User?>(null)
     val user: StateFlow<User?> = _user
 
-    private val _isHelper = MutableStateFlow(false)
-    val isHelper: StateFlow<Boolean> = _isHelper
-
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading
 
@@ -42,7 +39,6 @@ class EditProfileViewModel @Inject constructor(
             try {
                 val currentUser = repository.fetchCurrentUser()
                 _user.value = currentUser
-                _isHelper.value = currentUser?.isHelper == true
             } catch (e: Exception) {
                 _user.value = null
             } finally {
@@ -51,13 +47,26 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    fun saveUserDetails(user: User) {
+    fun saveUserDetails(user: User, latitude: Double?, longitude: Double?) {
         viewModelScope.launch {
             _loading.value = true
             try {
-                repository.updateUserDetails(user)
+                // First, upload the image if one exists and get the download URL
+                val downloadUrl = uploadImage()
+
+                // Update the user's profile with the new image URL and location data
+                val updatedUser = user.copy(
+                    latitude = latitude,
+                    longitude = longitude,
+                    imageUri = downloadUrl // Set the new image URL
+                )
+
+                // Save the updated user details to Firestore
+                repository.updateUserDetails(updatedUser)
+
                 _saveSuccess.value = true
             } catch (e: Exception) {
+                Log.e("EditProfileViewModel", "Error saving user details: ${e.message}")
                 _saveSuccess.value = false
             } finally {
                 _loading.value = false
@@ -65,7 +74,7 @@ class EditProfileViewModel @Inject constructor(
         }
     }
 
-    suspend fun uploadImage(): String? {
+    private suspend fun uploadImage(): String? {
         val uri = _imageUri.value ?: return null
         return try {
             repository.uploadImageToStorage(Uri.parse(uri))

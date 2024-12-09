@@ -1,3 +1,5 @@
+package com.example.neighbourly.viewModels
+
 import com.example.neighbourly.repositories.UserRepository
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.viewmodel.auth.LoginViewModel

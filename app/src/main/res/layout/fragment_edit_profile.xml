@@ -18,34 +18,34 @@
                 android:id="@+id/editProfileTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit Profile"
+                android:text="@string/edit_profile"
                 android:textStyle="bold"
                 android:textSize="22sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="@dimen/profile_margin_top" />
 
             <!-- Back Button -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/editProfileBackBtn"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@drawable/ic_baseline_back_arrow"
+                android:layout_width="@dimen/back_btn"
+                android:layout_height="@dimen/back_btn"
+                android:background="@drawable/rounded_back_btn"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
                 app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="30dp" />
+                android:layout_marginTop="@dimen/profile_margin_top" />
 
             <!-- Profile Image -->
             <ImageView
                 android:id="@+id/editProfileImage"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="20dp"
+                android:layout_width="@dimen/profile_pic_width_height"
+                android:layout_height="@dimen/profile_pic_width_height"
+                android:layout_marginTop="@dimen/profile_margin_top"
                 android:layout_marginBottom="10dp"
                 android:src="@drawable/profile_pic_placeholder"
-                android:contentDescription="Profile Image"
+                android:contentDescription="@string/profile_image_content_desc"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toBottomOf="@id/editProfileTitle"
                 app:layout_constraintStart_toStartOf="parent"
@@ -56,142 +56,237 @@
                 android:id="@+id/tvEditNameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name"
+                android:text="@string/name_label"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/editProfileImage"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp" />
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top" />
 
             <EditText
                 android:id="@+id/etEditName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Your Name"
+                android:hint="@string/name_hint"
                 android:inputType="text"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
+                android:padding="@dimen/edit_page_padding_horizontal"
+                android:layout_marginTop="@dimen/edit_page_vertical_margin"
+                android:background="@drawable/auth_input_btn"
                 app:layout_constraintTop_toBottomOf="@id/tvEditNameLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="15dp" />
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin" />
 
             <!-- Email -->
             <TextView
                 android:id="@+id/tvEditEmailLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email_label"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/etEditName"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp" />
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top" />
 
             <EditText
                 android:id="@+id/etEditEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Your Email"
+                android:autofillHints=""
+                android:hint="@string/edit_profile_email_hint"
                 android:inputType="textEmailAddress"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
+                android:padding="@dimen/edit_page_padding_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/tvEditEmailLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="15dp" />
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_vertical_margin"
+                android:background="@drawable/auth_input_btn"/>
 
             <!-- About Me -->
             <TextView
                 android:id="@+id/tvEditAboutMeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="About Me"
+                android:text="@string/about_me_label"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/etEditEmail"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp" />
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top" />
 
             <EditText
                 android:id="@+id/etEditAboutMe"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:hint="Tell the world about yourself"
+                android:hint="@string/edit_profile_about_me_hint"
                 android:gravity="top"
                 android:inputType="text"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
+                android:background="@drawable/auth_input_btn"
+                android:paddingVertical="@dimen/edit_page_padding_vertical"
+                android:paddingHorizontal="@dimen/edit_page_padding_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/tvEditAboutMeLabel"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="15dp" />
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_vertical_margin"/>
 
             <!-- Address -->
             <TextView
                 android:id="@+id/tvEditLivesNearLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lives Near"
+                android:text="@string/located_near_label"
                 android:textSize="20sp"
                 app:layout_constraintTop_toBottomOf="@id/etEditAboutMe"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp" />
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top" />
 
-            <EditText
-                android:id="@+id/etEditLivesNear"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/locationContainer"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="Populated with geo-location"
-                android:inputType="text"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
-                app:layout_constraintTop_toBottomOf="@id/tvEditLivesNearLabel"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvEditLivesNearLabel"
+                android:layout_marginTop="@dimen/registerPageMargin"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="15dp" />
+                style="@style/authInputText"
+                android:paddingVertical="15dp"
+                android:paddingHorizontal="12dp"
+                android:layout_marginHorizontal="15dp"
+                >
+
+                <TextView
+                    android:id="@+id/locationHint"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@string/set_location_hint"
+                    android:textColor="@color/inputHint"
+                    android:textSize="16sp"
+                    android:textFontWeight="200"
+                    android:fontFamily="@font/roboto"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/fetchLocationBtn"
+                    android:layout_marginEnd="10dp"
+                    android:paddingStart="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    />
+
+                <Button
+                    android:id="@+id/fetchLocationBtn"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/ic_location_pin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="10dp"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/becomeAHelperLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/locationContainer"
+                app:layout_constraintStart_toStartOf="parent"
+                android:textSize="20sp"
+                android:text="@string/become_a_helper"
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top"/>
+
+            <RadioGroup
+                android:id="@+id/helperChoicesBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/becomeAHelperLabel"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin"
+                android:orientation="vertical">
+                <RadioButton android:id="@+id/radio_yes_helper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yes"/>
+                <RadioButton android:id="@+id/radio_no_helper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No"/>
+            </RadioGroup>
+
 
             <!-- Skills (Helper-Specific) -->
             <TextView
                 android:id="@+id/tvEditSkillsLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Skills"
+                android:text="@string/helper_skills_label"
                 android:textSize="20sp"
-                android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/etEditLivesNear"
+                app:layout_constraintTop_toBottomOf="@id/helperChoicesBtn"
                 app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="30dp" />
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top" />
 
             <EditText
                 android:id="@+id/etEditSkills"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:hint="List your skills"
+                android:hint="@string/helper_list_skill_hint"
                 android:gravity="top"
                 android:inputType="text"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="15dp"
-                android:visibility="gone"
+                android:paddingVertical="@dimen/edit_page_padding_vertical"
+                android:paddingHorizontal="@dimen/edit_page_padding_horizontal"
                 app:layout_constraintTop_toBottomOf="@id/tvEditSkillsLabel"
                 app:layout_constraintStart_toStartOf="parent"
+                android:background="@drawable/auth_input_btn"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginHorizontal="15dp" />
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin" />
+
+            <TextView
+                android:id="@+id/tvEditHelperDescriptionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/helper_description"
+                android:textSize="20sp"
+                app:layout_constraintTop_toBottomOf="@id/etEditSkills"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/edit_page_horizontal_margin"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top" />
+
+            <EditText
+                android:id="@+id/etEditHelperDescription"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:hint="@string/tell_the_world_what_you_can_offer"
+                android:gravity="top"
+                android:inputType="text"
+                android:paddingVertical="@dimen/edit_page_padding_vertical"
+                android:paddingHorizontal="@dimen/edit_page_padding_horizontal"
+                android:background="@drawable/auth_input_btn"
+                app:layout_constraintTop_toBottomOf="@id/tvEditHelperDescriptionLabel"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="@dimen/registerPageMargin"
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin" />
 
             <!-- Save Button -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/editProfileSaveBtn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Save"
+                android:text="@string/save"
+                android:textColor="@color/white"
+                android:background="@drawable/auth_blue_btn"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/etEditSkills"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="15dp" />
+                app:layout_constraintTop_toBottomOf="@id/etEditHelperDescription"
+                android:layout_marginTop="@dimen/edit_page_labels_margin_top"
+                android:layout_marginHorizontal="@dimen/edit_page_horizontal_margin" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
     <!-- Loading Overlay -->

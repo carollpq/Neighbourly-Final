@@ -1,4 +1,4 @@
-package com.example.neighbourly
+package com.example.neighbourly.viewModels
 
 import com.example.neighbourly.models.ChatThread
 import com.example.neighbourly.models.User

@@ -1,4 +1,4 @@
-package com.example.neighbourly
+package com.example.neighbourly.fragments
 
 import android.content.Context
 import android.location.Location
@@ -6,6 +6,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.fragment.app.testing.FragmentScenario
 import androidx.test.core.app.ApplicationProvider
 import com.example.neighbourly.fragments.taskMarketplace.HomeFragment
+import com.example.neighbourly.launchFragmentInHiltContainer
 import com.example.neighbourly.utils.PermissionUtils
 import com.example.neighbourly.viewmodel.taskMarketplace.HomeViewModel
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -94,7 +95,7 @@ class HomeFragmentTest {
             fragment.checkLocationPermissionAndFetch()
 
             // Verify location permission is requested
-            verify(fragment.locationPermissionLauncher).launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            verify(fragment.locationPermissionLauncher).launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
         }
     }
 
