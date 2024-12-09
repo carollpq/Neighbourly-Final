@@ -3,7 +3,10 @@ import com.example.neighbourly.repositories.UserRepository
 import com.example.neighbourly.utils.OperationResult
 import com.example.neighbourly.utils.RegisterValidation
 import com.example.neighbourly.viewmodel.auth.RegisterViewModel
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -31,8 +34,13 @@ class RegisterViewModelTest {
         val confirmPassword = "password123"
 
         // Mock repository behavior
-        coEvery { userRepository.createNewUser(user.email!!, password).await() } returns Unit
-        coEvery { userRepository.saveUserInformation(any(), user) } returns Unit
+        // Mocking Firebase's createNewUser
+        val mockAuthResult = mockk<AuthResult>()
+        val mockTask = mockk<Task<AuthResult>>()
+        every { mockTask.isSuccessful } returns true
+        every { mockTask.result } returns mockAuthResult
+        coEvery { mockTask.await() } returns mockAuthResult
+        coEvery { userRepository.createNewUser(user.email!!, password) } returns mockTask
 
         // Perform the action
         viewModel.createAccountWithEmailAndPassword(user, password, confirmPassword)

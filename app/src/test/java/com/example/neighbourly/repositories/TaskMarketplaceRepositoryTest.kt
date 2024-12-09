@@ -1,11 +1,12 @@
-package com.example.neighbourly
-
 import com.example.neighbourly.models.Task
 import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.utils.Constants.TASK_COLLECTION
 import com.example.neighbourly.utils.Constants.USER_COLLECTION
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
@@ -17,12 +18,19 @@ import org.junit.Test
 class TaskMarketplaceRepositoryTest {
 
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
+    private lateinit var storage: FirebaseStorage
     private lateinit var repository: TaskMarketplaceRepository
 
     @Before
     fun setUp() {
-        firestore = FirebaseFirestore.getInstance() // Use the emulator for testing
-        repository = TaskMarketplaceRepository(firestore)
+        // Mock dependencies
+        firestore = FirebaseFirestore.getInstance() // Use emulator or mocking if available
+        auth = mockk(relaxed = true) // Mock FirebaseAuth
+        storage = mockk(relaxed = true) // Mock FirebaseStorage
+
+        // Initialize the repository with mocked dependencies
+        repository = TaskMarketplaceRepository(firestore, auth, storage)
     }
 
     @Test

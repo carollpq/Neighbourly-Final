@@ -5,8 +5,12 @@ import com.example.neighbourly.models.Task
 import com.example.neighbourly.models.User
 import com.example.neighbourly.repositories.TaskMarketplaceRepository
 import com.example.neighbourly.viewmodel.taskMarketplace.SearchResultViewModel
+import io.mockk.coEvery
+import io.mockk.mockk
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
@@ -22,6 +26,7 @@ class SearchResultViewModelTest {
     private lateinit var viewModel: SearchResultViewModel
     private val mockRepository: TaskMarketplaceRepository = mockk()
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Before
     fun setUp() {
         Dispatchers.setMain(StandardTestDispatcher())
@@ -45,7 +50,7 @@ class SearchResultViewModelTest {
     @Test
     fun `searchHelpers should emit matching helpers`() = runTest {
         // Mock data
-        val helpers = listOf(User(name = "Alice", skills = "Plumbing"))
+        val helpers = listOf(User(name = "Alice", skills = listOf("Plumbing")))
         coEvery { mockRepository.searchHelpers("Plumbing") } returns helpers
 
         // Execute
